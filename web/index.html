@@ -72,6 +72,9 @@ h2{font-size:13px;font-weight:600;margin:0 0 14px}
 .two{grid-template-columns:1fr 1fr} .wide{grid-template-columns:2fr 1fr}
 .bars .row{display:grid;grid-template-columns:130px 1fr 44px;align-items:center;gap:12px;padding:5px 0}
 .bars .name{color:var(--ink-2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap} .bars .n{text-align:right;color:var(--muted);font-variant-numeric:tabular-nums}
+.bars .row.clickable{cursor:pointer;border-radius:6px;margin:0 -6px;padding:5px 6px}
+.bars .row.clickable:hover{background:var(--hover)}
+.bars .row.clickable:hover .name{color:var(--accent)}
 .track{height:7px;background:var(--line-2);border-radius:4px;overflow:hidden}
 .track i{display:block;height:100%;background:var(--bar);border-radius:4px}
 .split{display:flex;height:8px;border-radius:4px;overflow:hidden;background:var(--bar-2);margin:12px 0 10px}
@@ -198,6 +201,7 @@ img.chart{width:100%;border:1px solid var(--line);border-radius:12px;background:
         <select id="f-rev" aria-label="Filter by review status"><option value="">All statuses</option><option value="no">Automatic</option><option value="yes">Needs review</option></select>
         <a class="btn" href="/api/export">Export CSV</a>
       </div>
+      <div id="reason-chip" style="margin:-4px 0 12px"></div>
       <div class="tablewrap"><table>
         <thead><tr><th>ID</th><th>Subject</th><th>Category</th><th>Priority</th><th>Confidence</th><th>Status</th><th>Tone</th><th>Lang</th></tr></thead>
         <tbody id="rows"></tbody></table></div>
@@ -273,8 +277,8 @@ const pct=(a,b)=>b?Math.round(a/b*100)+"%":"0%";
 const f1=x=>x==null?"-":(x*100).toFixed(1)+"%";
 const badge=p=>p?`<span class="badge p-${p}">${p}</span>`:`<span class="badge">Unclear</span>`;
 function toast(m){const t=$("toast");t.textContent=m;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),1800)}
-function bars(el,entries,max){max=max||Math.max(1,...entries.map(e=>e[1]));
-  $(el).innerHTML=entries.map(([k,v])=>`<div class="row"><span class="name" title="${esc(k)}">${esc(k)}</span><div class="track"><i style="width:${v/max*100}%"></i></div><span class="n">${v}</span></div>`).join("")}
+function bars(el,entries,link){const max=Math.max(1,...entries.map(e=>e[1]));
+  $(el).innerHTML=entries.map(([k,v])=>{const g=link?link(k):"";return `<div class="row${g?" clickable":""}"${g?` data-go="${esc(g)}" tabindex="0" role="button" aria-label="Show ${esc(k)} tickets"`:""}><span class="name" title="${esc(k)}">${esc(k)}</span><div class="track"><i style="width:${v/max*100}%"></i></div><span class="n">${v}</span></div>`}).join("")}
 const count=(arr,key,order)=>{const m={};arr.forEach(t=>{const k=t[key]||"Unclear";m[k]=(m[k]||0)+1});return (order||Object.keys(m)).filter(k=>m[k]).map(k=>[k,m[k]])};
 
 function currentTheme(){return document.documentElement.dataset.theme||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")}
@@ -309,19 +313,21 @@ function renderOverview(){
   $("split").innerHTML=`<i style="width:${S.auto/S.tickets*100}%"></i>`;
   $("split-legend").innerHTML=`<span><b>${S.auto}</b> automatic</span><span><b>${S.review}</b> human review</span>`;
   $("reasons").innerHTML='<h2>Why tickets went to review</h2><div class="bars" id="rr"></div>';
-  bars("rr",Object.entries(S.review_reasons).sort((a,b)=>b[1]-a[1]));
-  bars("pri-bars",count(T,"suggested_priority",[...PRIS,"Unclear"]));
-  bars("cat-bars",count(T,"suggested_category",[...CATS,"Unclear"]));
+  bars("rr",Object.entries(S.review_reasons).sort((a,b)=>b[1]-a[1]),k=>"reason:"+k);
+  bars("pri-bars",count(T,"suggested_priority",[...PRIS,"Unclear"]),k=>k==="Unclear"?"reason:no usable content":"pri:"+k);
+  bars("cat-bars",count(T,"suggested_category",[...CATS,"Unclear"]),k=>k==="Unclear"?"reason:no usable content":"cat:"+k);
   $("urgent").innerHTML=urgent.sort((a,b)=>a.received_at.localeCompare(b.received_at)).map(t=>`<tr data-id="${t.id}" tabindex="0"><td class="mono">${t.id}</td><td class="mono">${esc(t.received_at)}</td><td>${esc(t.customer)}</td><td>${t.suggested_category}</td><td class="muted">${esc(t.explanation)}</td><td>${t.needs_review==="yes"?"Yes":"No"}</td></tr>`).join("");
   bars("robust",Object.entries(S.robustness||{}));
   const inc=(I.incidents||[]); $("c-inc").textContent=inc.length||"";
-  bars("ov-inc",inc.slice(0,6).map(x=>[x.intent.replace(/_/g," "),x.tickets]));
+  bars("ov-inc",inc.slice(0,6).map(x=>[x.intent.replace(/_/g," "),x.tickets]),()=>"view:incidents");
   hourlyChart();
 }
 
 function renderTickets(){
   const q=$("q").value.toLowerCase(), c=$("f-cat").value, p=$("f-pri").value, r=$("f-rev").value;
-  const v=T.filter(t=>(!q||(t.id+t.subject+t.body).toLowerCase().includes(q))&&(!c||t.suggested_category===c)&&(!p||t.suggested_priority===p)&&(!r||t.needs_review===r));
+  const v=T.filter(t=>(!q||(t.id+t.subject+t.body).toLowerCase().includes(q))&&(!c||t.suggested_category===c)&&(!p||t.suggested_priority===p)&&(!r||t.needs_review===r)&&(!reasonFilter||t.review_reasons.toLowerCase().includes(reasonFilter.toLowerCase())));
+  $("reason-chip").innerHTML=reasonFilter?`<span class="tag">Review reason: ${esc(reasonFilter)}</span> <button class="btn" id="clear-reason" style="padding:2px 9px;font-size:12px">Clear</button>`:"";
+  if($("clear-reason")) $("clear-reason").onclick=()=>{reasonFilter="";renderTickets()};
   $("rows").innerHTML=v.map(t=>`<tr data-id="${t.id}" tabindex="0" aria-label="Open ticket ${t.id}"><td class="mono">${t.id}</td><td>${esc(t.subject)}</td><td>${t.suggested_category||'<span class="muted">-</span>'}</td><td>${badge(t.suggested_priority)}</td>
     <td><div style="display:flex;align-items:center;gap:8px"><div class="track" style="width:56px"><i style="width:${t.confidence*100}%"></i></div><span class="mono muted">${t.confidence.toFixed(2)}</span></div></td>
     <td>${t.needs_review==="yes"?(t.reviewed?'<span class="tag">Reviewed</span>':'<span class="badge p-High">Review</span>'):'<span class="muted">Automatic</span>'}</td><td><span class="tag">${t.tone}</span></td><td class="mono muted">${t.language}</td></tr>`).join("");
@@ -459,9 +465,18 @@ function show(view){
   if(view==="review"&&!sel){const f=reviewQueue().find(x=>!x.reviewed)||reviewQueue()[0]; if(f) selectReview(f.id)}
 }
 document.querySelectorAll("#nav a").forEach(a=>a.onclick=e=>{e.preventDefault();show(a.dataset.view)});
+const REASON_KEYS={"prompt injection":"injection","multiple requests":"several requests","no usable content":"no usable","no intent matched":"no known intent",
+  "possible under-prioritisation":"priority may be higher","rules vs ML disagree":"rules say","model unavailable, high impact":"no second opinion","low confidence":"low confidence","LLM disagrees":"LLM"};
+let reasonFilter="";
 function goTo(kind){
   if(kind==="review"){show("review");return}
-  $("q").value=""; $("f-cat").value=""; $("f-pri").value=kind==="urgent"?"Urgent":""; $("f-rev").value=kind==="auto"?"no":"";
+  if(kind.startsWith("view:")){show(kind.slice(5));window.scrollTo(0,0);return}
+  reasonFilter=kind.startsWith("reason:")?(REASON_KEYS[kind.slice(7)]||kind.slice(7)):"";
+  if(kind.startsWith("pri:")||kind.startsWith("cat:")||kind.startsWith("reason:")){
+    $("q").value="";$("f-rev").value=kind.startsWith("reason:")?"yes":"";
+    $("f-pri").value=kind.startsWith("pri:")?kind.slice(4):""; $("f-cat").value=kind.startsWith("cat:")?kind.slice(4):"";
+    renderTickets(); show("tickets"); window.scrollTo(0,0); return}
+  reasonFilter=""; $("q").value=""; $("f-cat").value=""; $("f-pri").value=kind==="urgent"?"Urgent":""; $("f-rev").value=kind==="auto"?"no":"";
   renderTickets(); show("tickets"); window.scrollTo(0,0);
 }
 document.addEventListener("click",e=>{const g=e.target.closest("[data-go]"); if(g) goTo(g.dataset.go)});
@@ -469,6 +484,7 @@ document.addEventListener("click",e=>{const q=e.target.closest("[data-q]"); if(q
   const r=e.target.closest("[data-id]"); if(r) openTicket(r.dataset.id)});
 $("scrim").onclick=closeDrawer;
 document.addEventListener("keydown",e=>{if(e.key==="Escape")closeDrawer();
+  if(e.key==="Enter"&&e.target.matches&&e.target.matches("[data-go]")&&e.target.tagName!=="BUTTON"){e.preventDefault();goTo(e.target.dataset.go);return}
   if(e.key==="Enter"&&e.target.matches){ if(e.target.matches("[data-q]")){e.preventDefault();selectReview(e.target.dataset.q)}
     else if(e.target.matches("[data-id]")){e.preventDefault();openTicket(e.target.dataset.id)} }});
 load();

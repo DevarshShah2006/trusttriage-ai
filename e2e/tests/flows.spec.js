@@ -203,3 +203,19 @@ test("command center cards open the matching tickets", async ({ page }) => {
   await page.keyboard.press("Enter");
   await expect(page.locator("#v-tickets")).toBeVisible();
 });
+
+test("overview bars open filtered tickets", async ({ page }) => {
+  await openApp(page);
+  await page.locator('#pri-bars [data-go="pri:High"]').click();
+  await expect(page.locator("#f-pri")).toHaveValue("High");
+  await expect(page.locator("#rows tr")).toHaveCount(46);
+  await go(page, "overview");
+  await page.locator('#cat-bars [data-go="cat:Billing"]').click();
+  await expect(page.locator("#f-cat")).toHaveValue("Billing");
+  await go(page, "overview");
+  await page.locator('#rr [data-go="reason:prompt injection"]').click();
+  await expect(page.locator("#rows tr")).toHaveCount(2);
+  await expect(page.locator("#reason-chip")).toContainText("injection");
+  await page.click("#clear-reason");
+  await expect(page.locator("#reason-chip")).toBeEmpty();
+});
