@@ -147,14 +147,16 @@ INTENTS: list[Intent] = [
 class RuleHit:
     intent: Intent
     segment: int
+    evidence: str = ""   # exact words in the ticket that triggered this intent
 
 
 def match(segments: list[str]) -> list[RuleHit]:
     hits: list[RuleHit] = []
     for i, seg in enumerate(segments):
         for intent in INTENTS:
-            if intent.pattern.search(seg):
-                hits.append(RuleHit(intent, i))
+            m = intent.pattern.search(seg)
+            if m:
+                hits.append(RuleHit(intent, i, m.group(0)))
     return hits
 
 
@@ -170,6 +172,7 @@ def decide(hits: list[RuleHit]) -> dict | None:
         "priority": top.priority,
         "intent": top.name,
         "why": top.why,
+        "evidence": hits[0].evidence,
         "all_intents": sorted({h.intent.name for h in hits}),
         "categories": sorted(categories),
     }

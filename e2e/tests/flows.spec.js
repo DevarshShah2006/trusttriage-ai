@@ -105,3 +105,37 @@ test("model quality page renders metrics and chart", async ({ page }) => {
   expect(await img.evaluate((el) => el.naturalWidth)).toBeGreaterThan(100);
   await expect(page.locator("#conf .row")).toHaveCount(7);
 });
+
+test("drawer shows evidence quoted from the ticket and rules/ML/final view", async ({ page }) => {
+  await openApp(page);
+  await go(page, "tickets");
+  await page.fill("#q", "T-0009");
+  await page.locator("#rows tr").first().click();
+  const drawer = page.locator("#drawer");
+  const evidence = (await drawer.locator(".evidence").innerText()).replace(/[“”]/g, "");
+  await expect(drawer.locator("pre.body")).toContainText(evidence);
+  await expect(drawer).toContainText("Rules / ML / Final");
+  await expect(drawer).toContainText(/auto_triaged|human_review/);
+});
+
+test("keyboard: open a ticket with Enter, close with Escape, focus returns", async ({ page }) => {
+  await openApp(page);
+  await go(page, "tickets");
+  await page.fill("#q", "T-0001");
+  const row = page.locator("#rows tr").first();
+  await row.focus();
+  await page.keyboard.press("Enter");
+  await expect(page.locator("#drawer")).toHaveClass(/open/);
+  await expect(page.locator("#close")).toBeFocused();
+  await page.keyboard.press("Escape");
+  await expect(page.locator("#drawer")).not.toHaveClass(/open/);
+  await expect(row).toBeFocused();
+});
+
+test("form controls have accessible names", async ({ page }) => {
+  await openApp(page);
+  const unnamed = await page.evaluate(() =>
+    [...document.querySelectorAll("input,select,textarea")].filter((el) =>
+      !el.getAttribute("aria-label") && !el.labels?.length).map((el) => el.id));
+  expect(unnamed).toEqual([]);
+});

@@ -2,7 +2,13 @@
   "tickets": 300,
   "auto": 268,
   "review": 32,
-  "seconds": 12.97,
+  "seconds": 7.06,
+  "outcomes": {
+    "auto_triaged": 268,
+    "human_review": 28,
+    "invalid_input": 4
+  },
+  "unaccounted": 0,
   "review_reasons": {
     "no usable content": 4,
     "low confidence": 7,

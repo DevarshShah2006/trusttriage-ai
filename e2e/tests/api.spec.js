@@ -61,3 +61,19 @@ test("review endpoint validates the ticket id", async ({ request }) => {
 test("unknown routes return 404", async ({ request }) => {
   expect((await request.get("/api/does-not-exist")).status()).toBe(404);
 });
+
+test("reconciliation: every ticket has exactly one outcome, zero unaccounted", async ({ request }) => {
+  const s = await (await request.get("/api/summary")).json();
+  expect(s.unaccounted).toBe(0);
+  const t = await (await request.get("/api/tickets")).json();
+  const allowed = ["auto_triaged", "human_review", "invalid_input"];
+  expect(t.every((x) => allowed.includes(x.outcome))).toBe(true);
+  expect(t.filter((x) => x.outcome === "auto_triaged").length).toBe(s.auto);
+});
+
+test("evidence is a verbatim quote from the ticket", async ({ request }) => {
+  const body = "Hello, sorry to bother you. I noticed a few payments on my card that I do not remember making.";
+  const d = await (await triage(request, "Small question", body)).json();
+  expect(d.evidence.length).toBeGreaterThan(3);
+  expect(body.toLowerCase()).toContain(d.evidence.toLowerCase());
+});

@@ -41,12 +41,22 @@ def write_report(res: pd.DataFrame, gold, ml_preds, out: Path, elapsed: float, a
     auto = res[res.needs_review == "no"]
     rev = res[res.needs_review == "yes"]
     reasons = Counter(_reason_key(r) for rr in rev.review_reasons for r in rr.split(" | ") if r)
+    outcomes = res.outcome.value_counts().to_dict()
     m: dict = {"tickets": n, "auto": len(auto), "review": len(rev), "seconds": round(elapsed, 2),
+               "outcomes": outcomes, "unaccounted": n - sum(outcomes.values()),
                "review_reasons": dict(reasons)}
 
     L = ["# Triage run report", "",
          f"Processed **{n} tickets** in **{elapsed:.1f}s** "
          f"(median {res.latency_ms.median():.1f} ms / ticket for the decision step).", "",
+         "## Reconciliation", "",
+         "| Outcome | Tickets |", "|---|---:|",
+         f"| Input records | {n} |",
+         f"| Automatically triaged | {int((res.outcome == 'auto_triaged').sum())} |",
+         f"| Human review | {int((res.outcome == 'human_review').sum())} |",
+         f"| Invalid input (no usable content, also in the review list) | {int((res.outcome == 'invalid_input').sum())} |",
+         f"| **Unaccounted** | **{n - int(res.outcome.isin(['auto_triaged', 'human_review', 'invalid_input']).sum())}** |",
+         "",
          "## How the tickets were handled", "",
          "| Outcome | Tickets | Share |", "|---|---:|---:|",
          f"| Handled automatically | {len(auto)} | {_pct(len(auto), n)} |",

@@ -51,6 +51,14 @@ ticket ──> preprocess ──> rule engine (intents) ──┐
 5. **Optional LLM** ([`triage/llm.py`](triage/llm.py)): Claude as a third vote, used only if `ANTHROPIC_API_KEY` is set. It has timeouts, retries with backoff and a circuit breaker. The system works fully offline without it.
 6. **Human review** ([`triage/db.py`](triage/db.py)): reviewers approve or correct decisions in the web app. Each decision is stored in SQLite as an audit trail and becomes future training data. The export applies the human decisions on top of the model's.
 
+### Accountability
+
+Every ticket ends in exactly one outcome (`auto_triaged`, `human_review` or `invalid_input`), and the report reconciles them: **300 in = 268 auto + 28 review + 4 invalid, 0 unaccounted**. The input is validated first (required columns, missing or duplicate IDs). For each ticket the detailed results keep the rules' opinion, the ML opinion and the final decision side by side, plus **evidence**: the exact words in the ticket that triggered the decision. Human decisions are stored separately and never overwrite the model's suggestion.
+
+### Not production-ready for real customer data (yet)
+
+The hosted demo has no login, rate limiting or data-retention policy, and its review store is temporary. Before real tickets go through it, it needs authentication for the review UI, a permanent database (Postgres), rate limits on the API, a retention policy for ticket text, and a clear notice if text is sent to an external LLM (off by default here).
+
 ### About the labels (honest note)
 
 `tickets.csv` has **no labels**, so there was nothing to train on directly. The 300 tickets come from about 45 request types. I labelled one example of each type by hand, propagated the label, then read every unusual ticket individually ([`scripts/build_gold.py`](scripts/build_gold.py) lists those overrides with reasons). The rules encode that same judgement, so the system's score on auto-handled tickets is **optimistic**. The ML model's **cross-validated** numbers are the honest out-of-sample estimate. In production, accuracy would be measured against labels from support agents (see the design note).
@@ -61,7 +69,7 @@ ticket ──> preprocess ──> rule engine (intents) ──┐
 pip install -r requirements.txt
 python run_triage.py                 # triage all tickets, writes outputs/
 uvicorn api:app --port 8000          # web app at http://localhost:8000
-python tests/test_triage.py          # 8 behaviour tests (also runs under pytest)
+python tests/test_triage.py          # 13 behaviour tests (also runs under pytest)
 ```
 
 End-to-end tests (Playwright, against the live site by default):

@@ -38,6 +38,12 @@ class Decision:
     latency_ms: float = 0.0
     suggested_category: str = ""
     suggested_priority: str = ""
+    evidence: str = ""
+    rule_category: str = ""
+    rule_priority: str = ""
+    ml_category: str = ""
+    ml_priority: str = ""
+    outcome: str = ""            # auto_triaged | human_review | invalid_input
 
 
 def triage_one(tid: str, subject: str, body: str, ml_row: dict | None,
@@ -58,7 +64,7 @@ def triage_one(tid: str, subject: str, body: str, ml_row: dict | None,
     if "no_usable_content" in prep.flags:
         return Decision(tid, "", "", "yes", 0.0, ["no usable content, ask customer for details"],
                         notes, language=prep.language,
-                        latency_ms=(time.perf_counter() - t0) * 1000)
+                        latency_ms=(time.perf_counter() - t0) * 1000, outcome="invalid_input")
 
     rule = decide(match(prep.segments))
 
@@ -122,6 +128,10 @@ def triage_one(tid: str, subject: str, body: str, ml_row: dict | None,
         language=prep.language,
         latency_ms=(time.perf_counter() - t0) * 1000,
         suggested_category=cat, suggested_priority=pri,
+        evidence=rule["evidence"] if rule else "",
+        rule_category=rule["category"] if rule else "", rule_priority=rule["priority"] if rule else "",
+        ml_category=ml_row["ml_category"] if ml_row else "", ml_priority=ml_row["ml_priority"] if ml_row else "",
+        outcome="human_review" if reasons else "auto_triaged",
     )
 
 
@@ -140,7 +150,9 @@ def triage_frame(df: pd.DataFrame, ml_preds: pd.DataFrame | None, llm: LLMClassi
             "needs_review": d.needs_review, "confidence": d.confidence,
             "suggested_category": d.suggested_category, "suggested_priority": d.suggested_priority,
             "review_reasons": " | ".join(d.reasons), "notes": " | ".join(d.notes),
-            "rule_intent": d.rule_intent, "explanation": d.explanation,
+            "outcome": d.outcome, "rule_intent": d.rule_intent, "explanation": d.explanation,
+            "evidence": d.evidence, "rule_category": d.rule_category, "rule_priority": d.rule_priority,
+            "ml_category": d.ml_category, "ml_priority": d.ml_priority,
             "language": d.language, "latency_ms": round(d.latency_ms, 2),
             "received_at": r.received_at, "customer": r.customer, "subject": r.subject,
         })

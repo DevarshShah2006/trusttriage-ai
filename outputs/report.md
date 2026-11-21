@@ -1,6 +1,16 @@
 # Triage run report
 
-Processed **300 tickets** in **13.0s** (median 0.9 ms / ticket for the decision step).
+Processed **300 tickets** in **7.1s** (median 0.4 ms / ticket for the decision step).
+
+## Reconciliation
+
+| Outcome | Tickets |
+|---|---:|
+| Input records | 300 |
+| Automatically triaged | 268 |
+| Human review | 28 |
+| Invalid input (no usable content, also in the review list) | 4 |
+| **Unaccounted** | **0** |
 
 ## How the tickets were handled
 

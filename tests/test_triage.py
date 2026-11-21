@@ -63,6 +63,57 @@ def test_multilingual():
     assert (d.category, d.priority) == ("Billing", "High")
 
 
+def _fake_llm(call):
+    from triage.llm import LLMClassifier
+    llm = LLMClassifier(retries=1)
+    llm.key = "test-key"          # pretend a key is configured; no network call is made
+    llm._call = call
+    return llm
+
+
+def test_llm_malformed_output_falls_back_safely():
+    from triage.llm import LLMUnavailable
+
+    def bad(_):
+        raise LLMUnavailable("invalid output: {'category': 'Spam'}")
+    llm = _fake_llm(bad)
+    d = triage_one("T", "Charged twice", "I was charged twice for order LM-1.", agree("Billing", "High"), llm)
+    assert (d.category, d.priority) == ("Billing", "High")
+    assert any("LLM unavailable" in n for n in d.notes)
+    assert llm.stats["failed"] == 1 and llm.stats["retries"] == 1
+
+
+def test_llm_cannot_lower_priority_and_disagreement_goes_to_review():
+    llm = _fake_llm(lambda _: {"category": "Other", "priority": "Low", "confidence": 0.9})
+    d = triage_one("T", "Hacked", "The email on my account was changed and it was not me.",
+                   agree("Account", "Urgent"), llm)
+    assert d.priority == "Urgent" and d.needs_review == "yes"
+
+
+def test_circuit_breaker_opens_after_repeated_failures():
+    from triage.llm import LLMUnavailable
+
+    def down(_):
+        raise LLMUnavailable("timeout")
+    llm = _fake_llm(down)
+    llm.retries = 0
+    for _ in range(6):
+        triage_one("T", "Q", "Do you ship to Canada? express shipping", agree("Shipping", "Low"), llm)
+    assert llm.stats["skipped_breaker_open"] >= 1
+
+
+def test_every_ticket_gets_exactly_one_outcome():
+    assert t("help", "help").outcome == "invalid_input"
+    assert t("Invoice", "Could you send a copy of the invoice?", agree("Billing", "Low")).outcome == "auto_triaged"
+    assert t("Login", "I cannot log in.", None).outcome == "human_review"
+
+
+def test_evidence_is_quoted_from_the_ticket():
+    body = "Tiny problem: none of the 40 units at our clinic respond."
+    d = t("Minor issue", body, agree("Technical", "Urgent"))
+    assert d.evidence and d.evidence in body
+
+
 if __name__ == "__main__":  # works without pytest: python tests/test_triage.py
     tests = [v for k, v in dict(globals()).items() if k.startswith("test_")]
     for fn in tests:

@@ -20,6 +20,22 @@ from triage.pipeline import triage_frame
 from triage.report import write_report
 
 ROOT = Path(__file__).resolve().parent
+REQUIRED = ["id", "received_at", "customer", "subject", "body"]
+
+
+def validate_input(df: pd.DataFrame) -> pd.DataFrame:
+    """Fail loudly on structural problems; keep (and flag) odd but valid rows."""
+    missing = [c for c in REQUIRED if c not in df.columns]
+    if missing:
+        sys.exit(f"Input error: missing required columns {missing}")
+    if (df.id.str.strip() == "").any():
+        sys.exit(f"Input error: {int((df.id.str.strip() == '').sum())} rows have no ticket id")
+    dups = df.id[df.id.duplicated()].unique().tolist()
+    if dups:
+        sys.exit(f"Input error: duplicate ticket ids {dups[:10]}")
+    print(f"Input OK: {len(df)} tickets, {df.id.nunique()} unique ids, "
+          f"{int((df.subject.str.strip() + df.body.str.strip() == '').sum())} completely empty")
+    return df
 
 
 def main():
@@ -35,7 +51,7 @@ def main():
     out.mkdir(parents=True, exist_ok=True)
 
     t0 = time.perf_counter()
-    tickets = pd.read_csv(args.tickets, dtype=str).fillna("")
+    tickets = validate_input(pd.read_csv(args.tickets, dtype=str).fillna(""))
     gold = pd.read_csv(args.gold) if Path(args.gold).exists() else None
     texts = (tickets.subject + "\n" + tickets.body).tolist()
 
