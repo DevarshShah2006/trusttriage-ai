@@ -1,0 +1,11 @@
+{
+  "name": "trusttriage-e2e",
+  "private": true,
+  "scripts": {
+    "test": "playwright test",
+    "test:local": "BASE_URL=http://localhost:8000 playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.57.0"
+  }
+}

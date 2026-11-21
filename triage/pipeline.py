@@ -107,8 +107,8 @@ def triage_one(tid: str, subject: str, body: str, ml_row: dict | None,
         except LLMUnavailable as e:
             notes.append(f"LLM unavailable ({e}); decided by local models")
 
-    if prep.language != "en" and conf < 0.9:
-        notes.append(f"non-English ticket ({prep.language})")
+    if prep.language != "en":
+        notes.append(f"non-English ticket ({prep.language}): route to an agent who reads it")
 
     conf = max(0.0, min(1.0, conf))
     if conf < REVIEW_THRESHOLD and not reasons:

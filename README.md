@@ -64,6 +64,16 @@ uvicorn api:app --port 8000          # web app at http://localhost:8000
 python tests/test_triage.py          # 8 behaviour tests (also runs under pytest)
 ```
 
+End-to-end tests (Playwright, against the live site by default):
+
+```bash
+cd e2e && npm install && npx playwright install chromium
+npx playwright test                                   # live Vercel site
+BASE_URL=http://localhost:8000 npx playwright test    # local server
+```
+
+They cover all five pages on desktop (light and dark) and mobile: totals, navigation, search and filters, the ticket drawer, the review workflow and audit trail, CSV export, the model page, and no horizontal scrolling. API tests cover tone traps, prompt injection, empty or junk input, very long log dumps, input validation and 404s.
+
 Options:
 
 ```bash

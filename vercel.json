@@ -2,7 +2,7 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "functions": {
     "api.py": {
-      "excludeFiles": "{tests/**,scripts/**,outputs/results_detailed.csv.bak,**/__pycache__/**}"
+      "excludeFiles": "{tests/**,e2e/**,scripts/**,outputs/results_detailed.csv.bak,**/__pycache__/**}"
     }
   }
 }

@@ -1,6 +1,6 @@
 # Triage run report
 
-Processed **300 tickets** in **5.7s** (median 0.3 ms / ticket for the decision step).
+Processed **300 tickets** in **13.0s** (median 0.9 ms / ticket for the decision step).
 
 ## How the tickets were handled
 
