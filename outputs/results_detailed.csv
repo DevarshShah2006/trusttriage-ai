@@ -1,0 +1,301 @@
+id,category,priority,needs_review,confidence,suggested_category,suggested_priority,review_reasons,notes,rule_intent,explanation,language,latency_ms,received_at,customer,subject
+T-0001,Shipping,Medium,no,0.948,Shipping,Medium,,,wrong_or_damaged_item,wrong or damaged item delivered,en,3.37,2026-11-16 07:37,Emma Johansson,Wrong item received
+T-0002,Billing,Low,no,0.971,Billing,Low,,,payment_method,payment method question,en,0.35,2026-11-16 07:49,Mateo Garcia,Updating my card
+T-0003,Other,Low,no,0.949,Other,Low,,,partnership,business enquiry,en,0.46,2026-11-16 07:54,Omar Haddad,Business enquiry
+T-0004,Billing,Low,no,0.972,Billing,Low,,,invoice_receipt,document request,en,0.33,2026-11-16 08:00,Liam Chen,Invoice copy
+T-0005,Account,Low,no,0.963,Account,Low,,,close_account,account closure request,en,0.27,2026-11-16 08:14,Nina Petrova,Close my account
+T-0006,Account,Medium,no,0.984,Account,Medium,,,password_reset_problem,password reset email delayed,en,0.37,2026-11-16 08:18,Grace Lee,Reset link expired
+T-0007,,,yes,0.0,,,"no usable content, ask customer for details",,,,en,0.03,2026-11-16 08:28,Mei Tanaka,help
+T-0008,Billing,Urgent,no,0.954,Billing,Urgent,,,unauthorised_charges,"possible fraud, money is leaving the customer's card right now",en,0.47,2026-11-16 08:38,Fatima Khan,Unauthorised payments
+T-0009,Technical,Urgent,yes,0.6,Technical,Urgent,low confidence (0.60),"customer downplays the issue: priority set from content, not tone | ML suggested lower priority Low; kept Urgent",business_outage,"outage for a whole business site, many users blocked",en,0.49,2026-11-16 08:51,Noah Williams,Minor issue
+T-0010,Technical,Medium,no,0.883,Technical,Medium,,157 log lines stripped before classification,feature_broken,a feature is failing with errors,en,0.43,2026-11-16 08:55,Ethan Brooks,Camera feed errors
+T-0011,Billing,Medium,no,0.981,Billing,Medium,,,renewal_dispute,unexpected renewal charge,en,0.36,2026-11-16 08:56,Omar Haddad,Renewal charge
+T-0012,Other,Low,no,0.977,Other,Low,,,partnership,business enquiry,en,0.32,2026-11-16 09:10,Arjun Rao,Business enquiry
+T-0013,Billing,Low,no,0.98,Billing,Low,,,payment_method,payment method question,en,0.24,2026-11-16 09:22,Ananya Iyer,Updating my card
+T-0014,Shipping,Low,no,0.974,Shipping,Low,,,shipping_info,shipping information question,en,0.19,2026-11-16 09:36,Hannah Schmidt,Do you ship to my country?
+T-0015,Shipping,Medium,no,0.948,Shipping,Medium,,,change_delivery_address,address change needed before dispatch (time-sensitive),en,0.35,2026-11-16 09:44,Rahul Verma,Wrong address on my order
+T-0016,Other,Low,no,0.974,Other,Low,,,careers,job enquiry,en,0.25,2026-11-16 09:53,Liam Chen,Careers
+T-0017,Account,Urgent,no,0.923,Account,Urgent,,,account_takeover,"account takeover, an attacker may control the customer's devices",en,0.44,2026-11-16 10:07,Mateo Garcia,I think my account was hacked
+T-0018,Billing,Urgent,no,0.973,Billing,Urgent,,,unauthorised_charges,"possible fraud, money is leaving the customer's card right now",en,0.39,2026-11-16 10:17,Julia Costa,Unauthorised payments
+T-0019,Account,Low,no,0.976,Account,Low,,,change_email,account details change,en,0.28,2026-11-16 10:19,Leila Farouk,Update my details
+T-0020,Account,High,no,0.978,Account,High,,,lost_2fa,customer is about to be locked out (lost two-factor device),en,0.48,2026-11-16 10:25,Lucas Martin,Lost my two-factor phone
+T-0021,Shipping,Medium,no,0.932,Shipping,Medium,,,tracking_stuck,tracking not updating,en,0.27,2026-11-16 10:38,Liam Chen,Tracking not updating
+T-0022,Account,High,no,0.894,Account,High,,,cannot_login,customer is locked out of their account,en,0.33,2026-11-16 10:51,Julia Costa,Login not working
+T-0023,Account,Low,no,0.891,Account,Low,,,change_email,account details change,en,0.25,2026-11-16 11:00,Olivia Turner,Update my details
+T-0024,Billing,Urgent,yes,0.679,Billing,Urgent,"several requests in different categories: Billing, Technical",,unauthorised_charges,"possible fraud, money is leaving the customer's card right now",en,0.61,2026-11-16 11:08,Priya Nair,Charges I did not make
+T-0025,Account,High,no,0.973,Account,High,,,cannot_login,customer is locked out of their account,en,0.43,2026-11-16 11:18,Ananya Iyer,Login not working
+T-0026,Billing,Urgent,no,0.987,Billing,Urgent,,,unauthorised_charges,"possible fraud, money is leaving the customer's card right now",en,0.46,2026-11-16 11:29,Sofia Rossi,Unauthorised payments
+T-0027,Shipping,Low,no,0.984,Shipping,Low,,,shipping_info,shipping information question,en,0.3,2026-11-16 11:31,Hannah Schmidt,Do you ship to my country?
+T-0028,Technical,Medium,no,0.974,Technical,Medium,,,sync_issue,devices out of sync,en,0.36,2026-11-16 11:38,Mateo Garcia,Devices not syncing
+T-0029,Billing,High,no,0.967,Billing,High,,,double_charge,customer was charged twice,en,0.47,2026-11-16 11:47,Liam Chen,Double charge on my card
+T-0030,Billing,Low,no,0.965,Billing,Low,,,payment_method,payment method question,en,0.28,2026-11-16 11:48,Ananya Iyer,Updating my card
+T-0031,Billing,Low,no,0.983,Billing,Low,,,invoice_receipt,document request,en,0.29,2026-11-16 11:52,Ethan Brooks,Invoice copy
+T-0032,Billing,Low,yes,0.4,Billing,Low,"rules say Billing, ML says Shipping (53%)",non-English ticket (de),invoice_receipt,document request,de,0.27,2026-11-16 11:54,Emma Johansson,Rechnung benötigt
+T-0033,Account,Medium,no,0.982,Account,Medium,,,password_reset_problem,password reset email delayed,en,0.42,2026-11-16 11:59,Daniel Okafor,Password reset email is slow
+T-0034,Shipping,Medium,no,0.953,Shipping,Medium,,,wrong_or_damaged_item,wrong or damaged item delivered,en,0.4,2026-11-16 12:12,Liam Chen,Arrived damaged
+T-0035,Other,Low,no,0.981,Other,Low,,,praise,positive feedback,en,0.31,2026-11-16 12:14,Ethan Brooks,Great product
+T-0036,Other,Low,no,0.973,Other,Low,,,careers,job enquiry,en,0.24,2026-11-16 12:22,Sofia Rossi,Job application
+T-0037,Billing,Urgent,yes,0.6,Billing,Urgent,low confidence (0.60),non-English ticket (hi),unauthorised_charges,"possible fraud, money is leaving the customer's card right now",hi,0.28,2026-11-16 12:35,Julia Costa,मेरे कार्ड से पैसे कट रहे हैं
+T-0038,Account,Low,no,0.979,Account,Low,,,change_email,account details change,en,0.27,2026-11-16 12:48,Nina Petrova,Change email address
+T-0039,Technical,Low,yes,0.6,Technical,Low,low confidence (0.60),non-English ticket (ja),slow_but_working,performance is degraded but the product still works,ja,0.13,2026-11-16 12:59,Lucas Martin,アプリが遅い
+T-0040,Other,Low,no,0.982,Other,Low,,,partnership,business enquiry,en,0.34,2026-11-16 13:04,Omar Haddad,Business enquiry
+T-0041,Technical,Medium,no,0.982,Technical,Medium,,,sync_issue,devices out of sync,en,0.35,2026-11-16 13:09,Fatima Khan,Sync problem
+T-0042,Shipping,Medium,no,0.885,Shipping,Medium,,,order_not_arrived,order missing,en,0.4,2026-11-16 13:15,Priya Nair,Order has not arrived
+T-0043,Other,Low,no,0.948,Other,Low,,,partnership,business enquiry,en,0.34,2026-11-16 13:27,Olivia Turner,Reseller question
+T-0044,Account,Low,yes,0.6,Account,Low,low confidence (0.60),non-English ticket (pt),change_email,account details change,pt,0.25,2026-11-16 13:41,Omar Haddad,Alterar e-mail
+T-0045,Shipping,Medium,no,0.931,Shipping,Medium,,,tracking_stuck,tracking not updating,it,0.28,2026-11-16 13:47,Samir Patel,Tracking non aggiornato
+T-0046,Billing,Medium,yes,0.68,Billing,Medium,"several requests in different categories: Account, Billing",,discount_missing,discount not applied,en,0.5,2026-11-16 13:57,Olivia Turner,Discount missing
+T-0047,Technical,Medium,no,0.941,Technical,Medium,,,sync_issue,devices out of sync,en,0.39,2026-11-16 14:01,Priya Nair,Devices not syncing
+T-0048,Other,High,no,0.953,Other,High,,,legal_threat,"legal or regulatory escalation, deadline-sensitive",en,0.39,2026-11-16 14:05,Priya Nair,Legal notice
+T-0049,Technical,Low,no,0.954,Technical,Low,,,how_to,how-to question,en,0.29,2026-11-16 14:08,Tom Becker,Question about a feature
+T-0050,Account,Medium,no,0.979,Account,Medium,,,password_reset_problem,password reset email delayed,en,0.36,2026-11-16 14:17,Noah Williams,Reset link expired
+T-0051,Billing,Medium,no,0.971,Billing,Medium,,,discount_missing,discount not applied,en,0.36,2026-11-16 14:30,Grace Lee,Discount missing
+T-0052,Account,Low,no,0.988,Account,Low,,,close_account,account closure request,en,0.25,2026-11-16 14:34,Lucas Martin,Close my account
+T-0053,Technical,Low,no,0.953,Technical,Low,,,how_to,how-to question,en,0.3,2026-11-16 14:46,Grace Lee,How to add a second user
+T-0054,Technical,High,no,0.825,Technical,High,,ML suggested lower priority Low; kept High | non-English ticket (de),total_outage_consumer,customer cannot use the product at all,de,0.31,2026-11-16 14:47,Yusuf Demir,App stürzt ab
+T-0055,Shipping,Medium,no,0.972,Shipping,Medium,,,tracking_stuck,tracking not updating,en,0.29,2026-11-16 14:49,Leila Farouk,No tracking updates
+T-0056,Technical,Medium,no,0.984,Technical,Medium,,,sync_issue,devices out of sync,en,0.35,2026-11-16 14:57,Chloe Dubois,Sync problem
+T-0057,Technical,Medium,no,0.932,Technical,Medium,,,feature_broken,a feature is failing with errors,en,0.37,2026-11-16 15:08,Priya Nair,Export fails
+T-0058,Billing,High,no,0.708,Billing,High,,non-English ticket (es),double_charge,customer was charged twice,es,0.32,2026-11-16 15:15,Sofia Rossi,Cobro duplicado
+T-0059,Account,Medium,no,0.933,Account,Medium,,,data_privacy_request,data-protection request with a legal response deadline,en,0.32,2026-11-16 15:19,Mei Tanaka,Data privacy request
+T-0060,Billing,Urgent,no,0.99,Billing,Urgent,,,unauthorised_charges,"possible fraud, money is leaving the customer's card right now",en,0.43,2026-11-16 15:33,Julia Costa,Unauthorised payments
+T-0061,Technical,Medium,no,0.985,Technical,Medium,,,sync_issue,devices out of sync,en,0.32,2026-11-16 15:45,Hannah Schmidt,Sync problem
+T-0062,Account,High,no,0.909,Account,High,,,cannot_login,customer is locked out of their account,en,0.36,2026-11-16 15:54,Leila Farouk,Locked out of my account
+T-0063,Account,High,no,0.98,Account,High,,,lost_2fa,customer is about to be locked out (lost two-factor device),en,0.48,2026-11-16 15:55,Sofia Rossi,Cannot get login codes
+T-0064,Billing,Low,no,0.983,Billing,Low,,,invoice_receipt,document request,en,0.26,2026-11-16 16:07,Mei Tanaka,Invoice for my records
+T-0065,Billing,Medium,no,0.97,Billing,Medium,,,renewal_dispute,unexpected renewal charge,en,0.31,2026-11-16 16:09,Fatima Khan,Unexpected renewal
+T-0066,Technical,Low,no,0.969,Technical,Low,,,slow_but_working,performance is degraded but the product still works,en,0.32,2026-11-16 16:13,Ben Carter,Lag in the app
+T-0067,Account,High,no,0.974,Account,High,,,cannot_login,customer is locked out of their account,en,0.38,2026-11-16 16:17,Tom Becker,Cannot log in at all
+T-0068,Account,Low,no,0.988,Account,Low,,,close_account,account closure request,en,0.27,2026-11-16 16:28,Ben Carter,Delete my account
+T-0069,Account,Low,no,0.989,Account,Low,,,close_account,account closure request,en,0.24,2026-11-16 16:41,Leila Farouk,Close my account
+T-0070,Billing,Medium,no,0.974,Billing,Medium,,,renewal_dispute,unexpected renewal charge,en,0.31,2026-11-16 16:51,Ben Carter,Renewal charge
+T-0071,Billing,Medium,yes,0.694,Billing,Medium,"several requests in different categories: Billing, Shipping",,discount_missing,discount not applied,en,0.54,2026-11-16 16:52,Julia Costa,Promo code not applied
+T-0072,Shipping,Low,yes,0.73,Shipping,Low,prompt injection attempt (instructions to the AI were removed),,shipping_info,shipping information question,en,0.11,2026-11-16 16:53,Leila Farouk,Delivery question
+T-0073,Account,Medium,no,0.984,Account,Medium,,,password_reset_problem,password reset email delayed,en,0.45,2026-11-16 16:54,Samir Patel,Password reset email is slow
+T-0074,Technical,Low,no,0.917,Technical,Low,,,how_to,how-to question,en,0.32,2026-11-16 17:03,Arjun Rao,How do I set up a routine?
+T-0075,Technical,Urgent,no,0.981,Technical,Urgent,,,business_outage,"outage for a whole business site, many users blocked",en,0.43,2026-11-16 17:10,Julia Costa,Whole office offline
+T-0076,Account,Medium,no,0.983,Account,Medium,,,password_reset_problem,password reset email delayed,en,0.33,2026-11-16 17:16,Leila Farouk,Reset link expired
+T-0077,Account,Low,no,0.982,Account,Low,,,change_email,account details change,en,0.26,2026-11-16 17:25,Mei Tanaka,Update my details
+T-0078,Technical,Urgent,no,0.966,Technical,Urgent,,,business_outage,"outage for a whole business site, many users blocked",en,0.46,2026-11-16 17:39,Ethan Brooks,Whole office offline
+T-0079,Other,Low,no,0.984,Other,Low,,,feature_request,product feedback,en,0.27,2026-11-16 17:42,Daniel Okafor,Feature suggestion
+T-0080,Other,Low,no,0.972,Other,Low,,,partnership,business enquiry,en,0.32,2026-11-16 17:43,Fatima Khan,Partnership enquiry
+T-0081,Account,High,no,0.98,Account,High,,,cannot_login,customer is locked out of their account,en,0.41,2026-11-16 17:55,Liam Chen,Locked out of my account
+T-0082,Technical,High,yes,0.713,Technical,High,"several requests in different categories: Shipping, Technical",,total_outage_consumer,customer cannot use the product at all,en,0.61,2026-11-16 17:58,Arjun Rao,App crashes on start
+T-0083,Technical,Low,no,0.958,Technical,Low,,,how_to,how-to question,en,0.3,2026-11-16 18:05,Rahul Verma,Question about a feature
+T-0084,Account,Low,no,0.957,Account,Low,,,change_email,account details change,en,0.29,2026-11-16 18:11,Liam Chen,Change email address
+T-0085,Other,High,no,0.957,Other,High,,,legal_threat,"legal or regulatory escalation, deadline-sensitive",en,0.41,2026-11-16 18:24,Leila Farouk,Formal complaint
+T-0086,Technical,Low,no,0.98,Technical,Low,,,slow_but_working,performance is degraded but the product still works,en,0.31,2026-11-16 18:27,Isha Kapoor,Lag in the app
+T-0087,Technical,High,no,0.978,Technical,High,,,total_outage_consumer,customer cannot use the product at all,en,0.41,2026-11-16 18:31,Liam Chen,App will not open
+T-0088,Account,Low,no,0.977,Account,Low,,,change_email,account details change,en,0.3,2026-11-16 18:39,Zara Sheikh,Change email address
+T-0089,Account,Medium,no,0.977,Account,Medium,,,password_reset_problem,password reset email delayed,en,0.41,2026-11-16 18:49,Ethan Brooks,Reset link expired
+T-0090,Account,Low,no,0.992,Account,Low,,,close_account,account closure request,en,0.23,2026-11-16 18:59,Priya Nair,Delete my account
+T-0091,Other,Low,no,0.983,Other,Low,,,feature_request,product feedback,en,0.28,2026-11-16 19:08,Leila Farouk,Suggestion
+T-0092,Shipping,Medium,no,0.899,Shipping,Medium,,,order_not_arrived,order missing,en,0.38,2026-11-16 19:12,Chloe Dubois,Order has not arrived
+T-0093,,,yes,0.0,,,"no usable content, ask customer for details",,,,en,0.03,2026-11-16 19:18,Tom Becker,(no subject)
+T-0094,Shipping,Low,no,0.968,Shipping,Low,,,shipping_info,shipping information question,en,0.23,2026-11-16 19:27,Liam Chen,Do you ship to my country?
+T-0095,Shipping,Medium,no,0.959,Shipping,Medium,,,change_delivery_address,address change needed before dispatch (time-sensitive),en,0.37,2026-11-16 19:28,Priya Nair,Change delivery address
+T-0096,Account,High,no,0.976,Account,High,,,cannot_login,customer is locked out of their account,en,0.38,2026-11-16 19:38,Nina Petrova,Login not working
+T-0097,Billing,Low,no,0.981,Billing,Low,,,invoice_receipt,document request,en,0.28,2026-11-16 19:42,Grace Lee,Invoice copy
+T-0098,Billing,Urgent,no,0.978,Billing,Urgent,,,unauthorised_charges,"possible fraud, money is leaving the customer's card right now",en,0.44,2026-11-16 19:56,Mateo Garcia,Fraud on my account?
+T-0099,Other,Low,yes,0.6,Other,Low,low confidence (0.60),"angry tone: priority set from content, not tone",feature_request,product feedback,en,0.29,2026-11-16 20:10,Emma Johansson,THIS IS RIDICULOUS
+T-0100,Shipping,Medium,no,0.976,Shipping,Medium,,,tracking_stuck,tracking not updating,en,0.28,2026-11-16 20:21,Ben Carter,Tracking not updating
+T-0101,Other,Low,no,0.975,Other,Low,,,feature_request,product feedback,en,0.25,2026-11-16 20:33,Grace Lee,An idea for the app
+T-0102,Technical,Urgent,no,0.953,Technical,Urgent,,,business_outage,"outage for a whole business site, many users blocked",en,0.33,2026-11-16 20:35,Sofia Rossi,All our devices are down
+T-0103,Billing,Medium,no,0.983,Billing,Medium,,,renewal_dispute,unexpected renewal charge,en,0.38,2026-11-16 20:36,Chloe Dubois,Subscription renewed without notice
+T-0104,Shipping,Medium,yes,0.654,Shipping,Medium,"several requests in different categories: Other, Shipping",,change_delivery_address,address change needed before dispatch (time-sensitive),en,0.39,2026-11-16 20:45,Yusuf Demir,Change delivery address
+T-0105,Account,Medium,no,0.951,Account,Medium,,,data_privacy_request,data-protection request with a legal response deadline,en,0.27,2026-11-16 20:47,Rahul Verma,Data privacy request
+T-0106,Billing,Low,no,0.955,Billing,Low,,,payment_method,payment method question,en,0.28,2026-11-16 20:53,Aarav Mehta,Updating my card
+T-0107,Account,High,no,0.876,Account,High,,"customer downplays the issue: priority set from content, not tone",cannot_login,customer is locked out of their account,en,0.36,2026-11-16 21:00,Fatima Khan,when you can
+T-0108,Shipping,Medium,no,0.901,Shipping,Medium,,,wrong_or_damaged_item,wrong or damaged item delivered,en,0.3,2026-11-16 21:07,Yusuf Demir,Broken on arrival
+T-0109,Technical,High,no,0.889,Technical,High,,167 log lines stripped before classification | ML suggested lower priority Medium; kept High,total_outage_consumer,customer cannot use the product at all,en,0.48,2026-11-16 21:08,Priya Nair,Nothing works since update
+T-0110,Billing,Medium,no,0.975,Billing,Medium,,,renewal_dispute,unexpected renewal charge,en,0.39,2026-11-16 21:14,Kabir Singh,Unexpected renewal
+T-0111,Billing,Medium,no,0.986,Billing,Medium,,,discount_missing,discount not applied,en,0.51,2026-11-16 21:23,Olivia Turner,Promo code not applied
+T-0112,Account,Low,no,0.984,Account,Low,,,close_account,account closure request,en,0.33,2026-11-16 21:31,Ben Carter,Close my account
+T-0113,Technical,High,no,0.981,Technical,High,,,total_outage_consumer,customer cannot use the product at all,en,0.53,2026-11-16 21:40,Ben Carter,App will not open
+T-0114,Technical,Medium,no,0.989,Technical,Medium,,,sync_issue,devices out of sync,en,0.48,2026-11-16 21:52,Yusuf Demir,Devices not syncing
+T-0115,Billing,Low,no,0.985,Billing,Low,,,invoice_receipt,document request,en,0.46,2026-11-16 21:54,Kabir Singh,Invoice copy
+T-0116,Technical,Low,no,0.947,Technical,Low,,,how_to,how-to question,en,0.42,2026-11-16 22:06,Omar Haddad,How do I set up a routine?
+T-0117,Technical,Low,no,0.963,Technical,Low,,,how_to,how-to question,en,0.52,2026-11-16 22:10,Emma Johansson,Question about a feature
+T-0118,Account,Low,no,0.984,Account,Low,,,change_email,account details change,en,0.47,2026-11-16 22:18,Leila Farouk,Update my details
+T-0119,Billing,Medium,no,0.987,Billing,Medium,,,renewal_dispute,unexpected renewal charge,en,0.77,2026-11-16 22:28,Arjun Rao,Subscription renewed without notice
+T-0120,Account,Medium,no,0.927,Account,Medium,,,data_privacy_request,data-protection request with a legal response deadline,en,0.64,2026-11-16 22:32,Grace Lee,Data privacy request
+T-0121,Billing,High,no,0.931,Billing,High,,,double_charge,customer was charged twice,en,0.45,2026-11-16 22:40,Sofia Rossi,Charged twice
+T-0122,Account,High,no,0.932,Account,High,,,lost_2fa,customer is about to be locked out (lost two-factor device),en,0.29,2026-11-16 22:43,Leila Farouk,Cannot get login codes
+T-0123,Account,High,no,0.978,Account,High,,,lost_2fa,customer is about to be locked out (lost two-factor device),en,0.48,2026-11-16 22:48,Mei Tanaka,Lost my two-factor phone
+T-0124,Account,Low,no,0.985,Account,Low,,,close_account,account closure request,en,0.28,2026-11-16 22:52,Hannah Schmidt,Close my account
+T-0125,Technical,Urgent,no,0.972,Technical,Urgent,,,business_outage,"outage for a whole business site, many users blocked",en,0.46,2026-11-16 22:54,Isha Kapoor,All our devices are down
+T-0126,Billing,Medium,no,0.984,Billing,Medium,,,discount_missing,discount not applied,en,0.48,2026-11-16 22:59,Emma Johansson,Promo code not applied
+T-0127,Technical,Low,no,0.781,Technical,Low,,,slow_but_working,performance is degraded but the product still works,en,0.31,2026-11-16 23:11,Nina Petrova,Lag in the app
+T-0128,Shipping,Medium,no,0.93,Shipping,Medium,,,wrong_or_damaged_item,wrong or damaged item delivered,en,0.38,2026-11-16 23:12,Zara Sheikh,Arrived damaged
+T-0129,Technical,Low,no,0.953,Technical,Low,,,slow_but_working,performance is degraded but the product still works,en,0.34,2026-11-16 23:13,Chloe Dubois,Slow to respond
+T-0130,Technical,Medium,no,0.98,Technical,Medium,,,sync_issue,devices out of sync,en,0.36,2026-11-16 23:22,Grace Lee,Devices not syncing
+T-0131,Billing,Medium,no,0.984,Billing,Medium,,,renewal_dispute,unexpected renewal charge,en,0.39,2026-11-16 23:23,Julia Costa,Renewal charge
+T-0132,Other,Low,no,0.98,Other,Low,,,feature_request,product feedback,en,0.3,2026-11-16 23:33,Daniel Okafor,An idea for the app
+T-0133,Other,High,no,0.97,Other,High,,,legal_threat,"legal or regulatory escalation, deadline-sensitive",en,0.37,2026-11-16 23:47,Liam Chen,Formal complaint
+T-0134,Shipping,Medium,no,0.977,Shipping,Medium,,,wrong_or_damaged_item,wrong or damaged item delivered,en,0.33,2026-11-16 23:59,Leila Farouk,Wrong item received
+T-0135,Technical,Urgent,no,0.975,Technical,Urgent,,,business_outage,"outage for a whole business site, many users blocked",en,0.43,2026-11-17 00:11,Noah Williams,Whole office offline
+T-0136,Technical,High,no,0.986,Technical,High,,,total_outage_consumer,customer cannot use the product at all,en,0.4,2026-11-17 00:14,Lucas Martin,App crashes on start
+T-0137,Billing,Low,no,0.979,Billing,Low,,,invoice_receipt,document request,en,0.24,2026-11-17 00:17,Priya Nair,Need a receipt
+T-0138,Account,Urgent,no,0.976,Account,Urgent,,,account_takeover,"account takeover, an attacker may control the customer's devices",en,0.44,2026-11-17 00:25,Ethan Brooks,Email on my account was changed
+T-0139,Account,Low,no,0.989,Account,Low,,,close_account,account closure request,en,0.28,2026-11-17 00:30,Samir Patel,Delete my account
+T-0140,Other,Low,no,0.977,Other,Low,,,partnership,business enquiry,en,0.33,2026-11-17 00:41,Liam Chen,Business enquiry
+T-0141,Technical,Low,no,0.986,Technical,Low,,,how_to,how-to question,en,0.25,2026-11-17 00:50,Tom Becker,Question about a feature
+T-0142,Technical,Medium,no,0.955,Technical,Medium,,,feature_broken,a feature is failing with errors,en,0.4,2026-11-17 01:01,Nina Petrova,Export fails
+T-0143,Billing,Low,yes,0.663,Billing,Low,"several requests in different categories: Billing, Shipping",,invoice_receipt,document request,en,0.38,2026-11-17 01:02,Yusuf Demir,Invoice for my records
+T-0144,Technical,Urgent,no,0.935,Technical,Urgent,,,business_outage,"outage for a whole business site, many users blocked",en,0.33,2026-11-17 01:14,Hannah Schmidt,Service down for our company
+T-0145,Other,Low,no,0.986,Other,Low,,,praise,positive feedback,en,0.35,2026-11-17 01:25,Emma Johansson,Great product
+T-0146,Account,Medium,no,0.99,Account,Medium,,,password_reset_problem,password reset email delayed,en,0.33,2026-11-17 01:38,Isha Kapoor,Password reset email is slow
+T-0147,Other,Low,no,0.98,Other,Low,,,praise,positive feedback,en,0.33,2026-11-17 01:39,Omar Haddad,Great product
+T-0148,Account,Medium,no,0.982,Account,Medium,,,password_reset_problem,password reset email delayed,en,0.36,2026-11-17 01:52,Fatima Khan,Reset link expired
+T-0149,Billing,Medium,no,0.979,Billing,Medium,,,discount_missing,discount not applied,en,0.35,2026-11-17 02:04,Hannah Schmidt,Promo code not applied
+T-0150,Shipping,Medium,no,0.966,Shipping,Medium,,,change_delivery_address,address change needed before dispatch (time-sensitive),en,0.25,2026-11-17 02:16,Hannah Schmidt,Change delivery address
+T-0151,Other,Low,no,0.968,Other,Low,,,careers,job enquiry,en,0.26,2026-11-17 02:25,Lucas Martin,Careers
+T-0152,Account,High,no,0.985,Account,High,,,lost_2fa,customer is about to be locked out (lost two-factor device),en,0.47,2026-11-17 02:28,Isha Kapoor,Cannot get login codes
+T-0153,Technical,High,no,0.978,Technical,High,,,total_outage_consumer,customer cannot use the product at all,en,0.4,2026-11-17 02:29,Kabir Singh,Cannot use the app at all
+T-0154,Account,High,no,0.983,Account,High,,,lost_2fa,customer is about to be locked out (lost two-factor device),en,0.86,2026-11-17 02:40,Kabir Singh,Cannot get login codes
+T-0155,Account,High,no,0.963,Account,High,,,lost_2fa,customer is about to be locked out (lost two-factor device),en,0.54,2026-11-17 02:53,Samir Patel,Lost my two-factor phone
+T-0156,Other,Low,no,0.98,Other,Low,,,praise,positive feedback,en,0.42,2026-11-17 02:59,Grace Lee,Great product
+T-0157,Other,Low,no,0.966,Other,Low,,,feature_request,product feedback,en,0.51,2026-11-17 03:05,Aarav Mehta,Feature suggestion
+T-0158,Account,Low,no,0.983,Account,Low,,,close_account,account closure request,en,0.45,2026-11-17 03:12,Noah Williams,Close my account
+T-0159,Technical,Low,no,0.709,Technical,Low,,non-English ticket (fr),how_to,how-to question,fr,0.4,2026-11-17 03:23,Leila Farouk,Question sur l'application
+T-0160,Technical,Low,no,0.967,Technical,Low,,,how_to,how-to question,en,0.47,2026-11-17 03:25,Priya Nair,How to add a second user
+T-0161,Other,Low,no,0.966,Other,Low,,,praise,positive feedback,en,0.39,2026-11-17 03:26,Sofia Rossi,Just saying thanks
+T-0162,Billing,Low,no,0.991,Billing,Low,,,invoice_receipt,document request,en,0.28,2026-11-17 03:33,Liam Chen,Invoice copy
+T-0163,Billing,Medium,no,0.97,Billing,Medium,,,renewal_dispute,unexpected renewal charge,en,0.42,2026-11-17 03:45,Noah Williams,Unexpected renewal
+T-0164,Account,Low,no,0.985,Account,Low,,,change_email,account details change,en,0.27,2026-11-17 03:58,Nina Petrova,Change email address
+T-0165,Technical,High,yes,0.718,Technical,High,"several requests in different categories: Billing, Technical",,total_outage_consumer,customer cannot use the product at all,en,0.69,2026-11-17 03:59,Hannah Schmidt,App crashes on start
+T-0166,Other,Low,no,0.956,Other,Low,,,careers,job enquiry,en,0.22,2026-11-17 04:10,Rahul Verma,Careers
+T-0167,Account,Low,no,0.983,Account,Low,,,close_account,account closure request,en,0.28,2026-11-17 04:12,Noah Williams,Close my account
+T-0168,Account,Medium,no,0.986,Account,Medium,,,password_reset_problem,password reset email delayed,en,0.37,2026-11-17 04:21,Grace Lee,Password reset email is slow
+T-0169,Shipping,Low,no,0.795,Shipping,Low,,"angry tone: priority set from content, not tone",shipping_info,shipping information question,en,0.31,2026-11-17 04:28,Aarav Mehta,TERRIBLE SERVICE!!!
+T-0170,Shipping,Medium,no,0.945,Shipping,Medium,,,tracking_stuck,tracking not updating,en,0.32,2026-11-17 04:31,Olivia Turner,No tracking updates
+T-0171,Other,Low,no,0.969,Other,Low,,,feature_request,product feedback,en,0.44,2026-11-17 04:35,Isha Kapoor,Suggestion
+T-0172,Account,High,no,0.979,Account,High,,,lost_2fa,customer is about to be locked out (lost two-factor device),en,0.84,2026-11-17 04:40,Mei Tanaka,Lost my two-factor phone
+T-0173,Billing,Medium,no,0.982,Billing,Medium,,,discount_missing,discount not applied,en,0.38,2026-11-17 04:43,Julia Costa,Promo code not applied
+T-0174,Other,Low,no,0.761,Other,Low,,non-English ticket (pt),feature_request,product feedback,pt,0.25,2026-11-17 04:44,Emma Johansson,Sugestão
+T-0175,Other,Low,no,0.981,Other,Low,,,partnership,business enquiry,en,0.37,2026-11-17 04:48,Rahul Verma,Reseller question
+T-0176,Shipping,Medium,no,0.98,Shipping,Medium,,,tracking_stuck,tracking not updating,en,0.32,2026-11-17 04:59,Lucas Martin,No tracking updates
+T-0177,Billing,Low,no,0.986,Billing,Low,,,invoice_receipt,document request,en,0.25,2026-11-17 05:06,Priya Nair,Need a receipt
+T-0178,Account,Medium,no,0.934,Account,Medium,,,data_privacy_request,data-protection request with a legal response deadline,en,0.28,2026-11-17 05:20,Noah Williams,Request for my data
+T-0179,Billing,Urgent,no,0.962,Billing,Urgent,,,unauthorised_charges,"possible fraud, money is leaving the customer's card right now",en,0.39,2026-11-17 05:23,Mateo Garcia,Unauthorised payments
+T-0180,Billing,High,no,0.955,Billing,High,,,double_charge,customer was charged twice,en,0.52,2026-11-17 05:25,Tom Becker,Double charge on my card
+T-0181,Technical,High,yes,0.68,Technical,High,"several requests in different categories: Billing, Technical",,total_outage_consumer,customer cannot use the product at all,en,0.54,2026-11-17 05:33,Omar Haddad,App crashes on start
+T-0182,Shipping,Medium,yes,0.704,Shipping,Medium,"several requests in different categories: Account, Shipping",,order_not_arrived,order missing,en,0.51,2026-11-17 05:46,Julia Costa,Order has not arrived
+T-0183,Billing,High,no,0.973,Billing,High,,,double_charge,customer was charged twice,en,0.37,2026-11-17 05:59,Hannah Schmidt,Double charge on my card
+T-0184,Shipping,Medium,yes,0.4,Shipping,Medium,"rules say Shipping, ML says Technical (50%)",ML suggested lower priority Low; kept Medium | non-English ticket (fr),order_not_arrived,order missing,fr,0.45,2026-11-17 06:11,Yusuf Demir,Commande non reçue
+T-0185,Account,High,no,0.888,Account,High,,,cannot_login,customer is locked out of their account,en,0.66,2026-11-17 06:23,Nina Petrova,Cannot log in at all
+T-0186,Billing,Low,no,0.968,Billing,Low,,,payment_method,payment method question,en,0.4,2026-11-17 06:24,Daniel Okafor,Updating my card
+T-0187,Billing,Medium,no,0.978,Billing,Medium,,,discount_missing,discount not applied,en,0.33,2026-11-17 06:36,Lucas Martin,Promo code not applied
+T-0188,Account,Low,no,0.963,Account,Low,,,close_account,account closure request,en,0.26,2026-11-17 06:37,Samir Patel,Close my account
+T-0189,Billing,Medium,no,0.976,Billing,Medium,,,renewal_dispute,unexpected renewal charge,en,0.39,2026-11-17 06:51,Fatima Khan,Unexpected renewal
+T-0190,Billing,Medium,no,0.988,Billing,Medium,,,renewal_dispute,unexpected renewal charge,en,0.35,2026-11-17 06:54,Grace Lee,Subscription renewed without notice
+T-0191,Shipping,Low,no,0.976,Shipping,Low,,,shipping_info,shipping information question,en,0.22,2026-11-17 07:06,Noah Williams,Delivery time question
+T-0192,Other,High,no,0.949,Other,High,,,legal_threat,"legal or regulatory escalation, deadline-sensitive",en,0.37,2026-11-17 07:12,Noah Williams,Formal complaint
+T-0193,Technical,High,yes,0.657,Technical,High,"several requests in different categories: Account, Technical",,total_outage_consumer,customer cannot use the product at all,en,0.65,2026-11-17 07:13,Arjun Rao,Cannot use the app at all
+T-0194,Technical,Medium,no,0.979,Technical,Medium,,,sync_issue,devices out of sync,en,0.34,2026-11-17 07:23,Olivia Turner,Devices not syncing
+T-0195,Technical,Medium,no,0.983,Technical,Medium,,,sync_issue,devices out of sync,en,0.34,2026-11-17 07:33,Sofia Rossi,Sync problem
+T-0196,Other,Low,no,0.974,Other,Low,,,praise,positive feedback,en,0.32,2026-11-17 07:38,Ethan Brooks,Just saying thanks
+T-0197,Other,Low,no,0.962,Other,Low,,,careers,job enquiry,en,0.22,2026-11-17 07:44,Lucas Martin,Job application
+T-0198,Account,Medium,no,0.985,Account,Medium,,,password_reset_problem,password reset email delayed,en,0.65,2026-11-17 07:57,Samir Patel,Password reset email is slow
+T-0199,Other,Low,no,0.982,Other,Low,,,careers,job enquiry,en,0.45,2026-11-17 07:58,Grace Lee,Job application
+T-0200,Shipping,Medium,no,0.984,Shipping,Medium,,,change_delivery_address,address change needed before dispatch (time-sensitive),en,0.46,2026-11-17 08:07,Aarav Mehta,Change delivery address
+T-0201,Technical,Medium,no,0.983,Technical,Medium,,,sync_issue,devices out of sync,en,0.6,2026-11-17 08:13,Julia Costa,Devices not syncing
+T-0202,Billing,Low,no,0.922,Billing,Low,,,payment_method,payment method question,en,0.53,2026-11-17 08:19,Arjun Rao,Updating my card
+T-0203,Billing,Low,no,0.975,Billing,Low,,,invoice_receipt,document request,en,0.48,2026-11-17 08:21,Emma Johansson,Need a receipt
+T-0204,Shipping,Medium,no,0.971,Shipping,Medium,,,tracking_stuck,tracking not updating,en,0.5,2026-11-17 08:27,Samir Patel,Tracking not updating
+T-0205,Billing,Low,no,0.984,Billing,Low,,,invoice_receipt,document request,en,0.48,2026-11-17 08:33,Zara Sheikh,Invoice for my records
+T-0206,Other,Low,yes,0.2,Other,Low,"several requests in different categories: Billing, Other | rules say Other, ML says Billing (50%)",,praise,positive feedback,en,0.85,2026-11-17 08:39,Grace Lee,Great product
+T-0207,Technical,High,yes,0.972,Technical,High,ML thinks priority may be higher: High (62%),211 log lines stripped before classification,slow_but_working,performance is degraded but the product still works,en,0.5,2026-11-17 08:44,Mei Tanaka,Slow responses
+T-0208,Billing,Low,no,0.976,Billing,Low,,,invoice_receipt,document request,en,0.31,2026-11-17 08:49,Ananya Iyer,Invoice for my records
+T-0209,Technical,Medium,no,0.924,Technical,Medium,,,feature_broken,a feature is failing with errors,en,0.43,2026-11-17 08:53,Emma Johansson,Cannot export history
+T-0210,Technical,High,no,0.984,Technical,High,,,total_outage_consumer,customer cannot use the product at all,en,0.35,2026-11-17 08:56,Noah Williams,App crashes on start
+T-0211,Account,High,no,0.97,Account,High,,,cannot_login,customer is locked out of their account,en,0.45,2026-11-17 09:08,Aarav Mehta,Cannot log in at all
+T-0212,Technical,Medium,no,0.987,Technical,Medium,,,sync_issue,devices out of sync,en,0.33,2026-11-17 09:10,Olivia Turner,Devices not syncing
+T-0213,Billing,Medium,no,0.987,Billing,Medium,,,renewal_dispute,unexpected renewal charge,en,0.35,2026-11-17 09:23,Mateo Garcia,Subscription renewed without notice
+T-0214,Shipping,Medium,no,0.959,Shipping,Medium,,,change_delivery_address,address change needed before dispatch (time-sensitive),en,0.3,2026-11-17 09:37,Grace Lee,Change delivery address
+T-0215,Technical,Medium,no,0.938,Technical,Medium,,,sync_issue,devices out of sync,en,0.36,2026-11-17 09:41,Mei Tanaka,Sync problem
+T-0216,Account,Medium,no,0.943,Account,Medium,,,data_privacy_request,data-protection request with a legal response deadline,en,0.32,2026-11-17 09:54,Aarav Mehta,Request for my data
+T-0217,Shipping,Medium,no,0.982,Shipping,Medium,,,change_delivery_address,address change needed before dispatch (time-sensitive),en,0.26,2026-11-17 09:57,Sofia Rossi,Change delivery address
+T-0218,Billing,High,no,0.969,Billing,High,,,double_charge,customer was charged twice,en,0.47,2026-11-17 09:59,Ethan Brooks,Duplicate payment
+T-0219,Account,High,no,0.978,Account,High,,,lost_2fa,customer is about to be locked out (lost two-factor device),en,0.47,2026-11-17 10:04,Fatima Khan,Lost my two-factor phone
+T-0220,Other,Low,no,0.967,Other,Low,,,praise,positive feedback,en,0.25,2026-11-17 10:09,Tom Becker,Great product
+T-0221,Technical,Medium,no,0.943,Technical,Medium,,,feature_broken,a feature is failing with errors,en,0.37,2026-11-17 10:20,Mei Tanaka,Cannot export history
+T-0222,Shipping,Medium,no,0.948,Shipping,Medium,,,wrong_or_damaged_item,wrong or damaged item delivered,en,0.27,2026-11-17 10:24,Hannah Schmidt,Broken on arrival
+T-0223,Shipping,Medium,yes,0.2,Shipping,Medium,"several requests in different categories: Other, Shipping | rules say Shipping, ML says Other (51%)",,wrong_or_damaged_item,wrong or damaged item delivered,en,0.5,2026-11-17 10:32,Aarav Mehta,Received the wrong product
+T-0224,Billing,Low,no,0.78,Billing,Low,,,invoice_receipt,document request,en,0.28,2026-11-17 10:34,Leila Farouk,Unbelievable
+T-0225,Shipping,Low,no,0.931,Shipping,Low,,,shipping_info,shipping information question,en,0.29,2026-11-17 10:37,Tom Becker,Delivery time question
+T-0226,Billing,Low,no,0.969,Billing,Low,,,payment_method,payment method question,en,0.24,2026-11-17 10:42,Liam Chen,Updating my card
+T-0227,Other,Low,no,0.976,Other,Low,,,feature_request,product feedback,en,0.28,2026-11-17 10:44,Daniel Okafor,An idea for the app
+T-0228,,,yes,0.0,,,"no usable content, ask customer for details",,,,en,0.03,2026-11-17 10:48,Rahul Verma,Re: Re: Fwd:
+T-0229,Technical,Low,no,0.945,Technical,Low,,,how_to,how-to question,en,1.1,2026-11-17 11:02,Fatima Khan,How do I set up a routine?
+T-0230,Shipping,Low,no,0.975,Shipping,Low,,,shipping_info,shipping information question,en,0.23,2026-11-17 11:09,Lucas Martin,Do you ship to my country?
+T-0231,Other,Low,no,0.979,Other,Low,,,praise,positive feedback,en,0.25,2026-11-17 11:17,Grace Lee,Great product
+T-0232,Billing,High,yes,0.4,Billing,High,"rules say Billing, ML says Technical (92%)",218 log lines stripped before classification,double_charge,customer was charged twice,en,0.67,2026-11-17 11:22,Fatima Khan,"Charged twice, see details"
+T-0233,Technical,Medium,no,0.986,Technical,Medium,,,sync_issue,devices out of sync,en,0.35,2026-11-17 11:26,Ananya Iyer,Sync problem
+T-0234,Billing,Low,no,0.96,Billing,Low,,,payment_method,payment method question,en,0.23,2026-11-17 11:30,Ethan Brooks,Updating my card
+T-0235,Billing,Urgent,yes,0.608,Billing,Urgent,"several requests in different categories: Account, Billing",,unauthorised_charges,"possible fraud, money is leaving the customer's card right now",en,0.76,2026-11-17 11:36,Isha Kapoor,Charges I did not make
+T-0236,Other,Low,no,0.965,Other,Low,,,praise,positive feedback,en,0.26,2026-11-17 11:48,Isha Kapoor,Just saying thanks
+T-0237,Technical,Low,no,0.974,Technical,Low,,,slow_but_working,performance is degraded but the product still works,en,0.32,2026-11-17 11:58,Ben Carter,Lag in the app
+T-0238,Billing,Low,no,0.976,Billing,Low,,,payment_method,payment method question,en,0.23,2026-11-17 12:08,Lucas Martin,Updating my card
+T-0239,Account,Medium,no,0.961,Account,Medium,,,data_privacy_request,data-protection request with a legal response deadline,en,0.28,2026-11-17 12:10,Yusuf Demir,Data privacy request
+T-0240,Shipping,Medium,no,0.986,Shipping,Medium,,,order_not_arrived,order missing,en,0.36,2026-11-17 12:13,Aarav Mehta,Order has not arrived
+T-0241,Technical,Medium,no,0.989,Technical,Medium,,,sync_issue,devices out of sync,en,0.33,2026-11-17 12:24,Olivia Turner,Sync problem
+T-0242,Account,Low,no,0.978,Account,Low,,,change_email,account details change,en,0.2,2026-11-17 12:25,Chloe Dubois,Change email address
+T-0243,Account,High,no,0.948,Account,High,,,cannot_login,customer is locked out of their account,en,0.35,2026-11-17 12:30,Tom Becker,Login not working
+T-0244,Account,Low,no,0.975,Account,Low,,,change_email,account details change,en,0.29,2026-11-17 12:41,Julia Costa,Update my details
+T-0245,Other,Low,yes,0.781,Other,Low,prompt injection attempt (instructions to the AI were removed),,feature_request,product feedback,en,0.15,2026-11-17 12:50,Ethan Brooks,Suggestion for the app
+T-0246,Billing,Medium,no,0.979,Billing,Medium,,,renewal_dispute,unexpected renewal charge,en,0.43,2026-11-17 12:54,Julia Costa,Subscription renewed without notice
+T-0247,Account,Medium,no,0.99,Account,Medium,,,password_reset_problem,password reset email delayed,en,0.39,2026-11-17 13:02,Julia Costa,Password reset email is slow
+T-0248,Technical,Low,no,0.975,Technical,Low,,,how_to,how-to question,en,0.31,2026-11-17 13:05,Omar Haddad,Question about a feature
+T-0249,Other,Low,no,0.964,Other,Low,,,feature_request,product feedback,en,0.43,2026-11-17 13:07,Ananya Iyer,Suggestion
+T-0250,Other,Low,no,0.968,Other,Low,,,praise,positive feedback,en,0.29,2026-11-17 13:11,Kabir Singh,Just saying thanks
+T-0251,Account,High,yes,0.6,Account,High,low confidence (0.60),non-English ticket (es),cannot_login,customer is locked out of their account,es,0.32,2026-11-17 13:22,Chloe Dubois,No puedo entrar
+T-0252,Shipping,Medium,no,0.797,Shipping,Medium,,non-English ticket (hi),wrong_or_damaged_item,wrong or damaged item delivered,hi,0.51,2026-11-17 13:26,Grace Lee,गलत सामान मिला
+T-0253,Other,Low,no,0.978,Other,Low,,,partnership,business enquiry,en,0.5,2026-11-17 13:30,Rahul Verma,Reseller question
+T-0254,Shipping,Medium,no,0.914,Shipping,Medium,,,wrong_or_damaged_item,wrong or damaged item delivered,en,0.36,2026-11-17 13:31,Liam Chen,Received the wrong product
+T-0255,Other,Low,no,0.984,Other,Low,,,feature_request,product feedback,en,0.31,2026-11-17 13:41,Fatima Khan,Suggestion
+T-0256,Account,Low,no,0.99,Account,Low,,,close_account,account closure request,en,0.28,2026-11-17 13:47,Ethan Brooks,Close my account
+T-0257,Shipping,Medium,no,0.966,Shipping,Medium,,,order_not_arrived,order missing,en,0.35,2026-11-17 13:54,Rahul Verma,Package missing
+T-0258,Technical,Low,no,0.978,Technical,Low,,,how_to,how-to question,en,0.3,2026-11-17 14:08,Chloe Dubois,How do I set up a routine?
+T-0259,Account,Urgent,no,0.899,Account,Urgent,,"customer downplays the issue: priority set from content, not tone",account_takeover,"account takeover, an attacker may control the customer's devices",en,0.5,2026-11-17 14:14,Zara Sheikh,Quick query
+T-0260,Billing,Medium,no,0.969,Billing,Medium,,,discount_missing,discount not applied,en,0.37,2026-11-17 14:21,Noah Williams,Discount missing
+T-0261,,,yes,0.0,,,"no usable content, ask customer for details",,,,en,0.04,2026-11-17 14:32,Sofia Rossi,???
+T-0262,Billing,Low,no,0.969,Billing,Low,,,invoice_receipt,document request,en,0.29,2026-11-17 14:45,Aarav Mehta,Invoice copy
+T-0263,Billing,Medium,no,0.971,Billing,Medium,,,discount_missing,discount not applied,en,0.41,2026-11-17 14:49,Ben Carter,Discount missing
+T-0264,Shipping,Low,no,0.962,Shipping,Low,,,shipping_info,shipping information question,en,0.31,2026-11-17 14:50,Samir Patel,Do you ship to my country?
+T-0265,Billing,Medium,no,0.987,Billing,Medium,,,discount_missing,discount not applied,en,0.41,2026-11-17 14:55,Yusuf Demir,Promo code not applied
+T-0266,Shipping,Low,no,0.969,Shipping,Low,,,shipping_info,shipping information question,en,0.25,2026-11-17 15:09,Noah Williams,Delivery time question
+T-0267,Technical,Urgent,no,0.967,Technical,Urgent,,,business_outage,"outage for a whole business site, many users blocked",en,0.34,2026-11-17 15:18,Liam Chen,Whole office offline
+T-0268,Account,Low,no,0.987,Account,Low,,,close_account,account closure request,en,0.31,2026-11-17 15:25,Isha Kapoor,Close my account
+T-0269,Account,Medium,no,0.988,Account,Medium,,,password_reset_problem,password reset email delayed,en,0.39,2026-11-17 15:36,Leila Farouk,Reset link expired
+T-0270,Account,Low,no,0.98,Account,Low,,,close_account,account closure request,en,0.28,2026-11-17 15:47,Zara Sheikh,Close my account
+T-0271,Shipping,Medium,no,0.956,Shipping,Medium,,,tracking_stuck,tracking not updating,en,0.27,2026-11-17 15:56,Kabir Singh,No tracking updates
+T-0272,Billing,Medium,no,0.988,Billing,Medium,,,renewal_dispute,unexpected renewal charge,en,0.35,2026-11-17 16:04,Omar Haddad,Subscription renewed without notice
+T-0273,Billing,Medium,no,0.984,Billing,Medium,,,discount_missing,discount not applied,en,0.45,2026-11-17 16:15,Grace Lee,Promo code not applied
+T-0274,Technical,Urgent,no,0.977,Technical,Urgent,,,business_outage,"outage for a whole business site, many users blocked",en,0.41,2026-11-17 16:27,Aarav Mehta,Service down for our company
+T-0275,Technical,Low,no,0.984,Technical,Low,,,slow_but_working,performance is degraded but the product still works,en,0.31,2026-11-17 16:34,Omar Haddad,Lag in the app
+T-0276,Shipping,Medium,no,0.978,Shipping,Medium,,,wrong_or_damaged_item,wrong or damaged item delivered,en,0.36,2026-11-17 16:40,Mateo Garcia,Broken on arrival
+T-0277,Other,Low,no,0.977,Other,Low,,,careers,job enquiry,en,0.29,2026-11-17 16:54,Isha Kapoor,Job application
+T-0278,Billing,Low,no,0.983,Billing,Low,,,invoice_receipt,document request,en,0.29,2026-11-17 17:01,Ananya Iyer,Invoice for my records
+T-0279,Billing,Low,no,0.986,Billing,Low,,,invoice_receipt,document request,en,0.25,2026-11-17 17:06,Liam Chen,Invoice copy
+T-0280,Technical,Medium,no,0.962,Technical,Medium,,,feature_broken,a feature is failing with errors,en,0.34,2026-11-17 17:13,Emma Johansson,Error when exporting
+T-0281,Billing,Medium,yes,0.602,Billing,Medium,"several requests in different categories: Billing, Other",,renewal_dispute,unexpected renewal charge,en,1.33,2026-11-17 17:23,Arjun Rao,Renewal charge
+T-0282,Billing,Medium,no,0.988,Billing,Medium,,,renewal_dispute,unexpected renewal charge,en,0.31,2026-11-17 17:30,Julia Costa,Subscription renewed without notice
+T-0283,Technical,High,no,0.962,Technical,High,,,total_outage_consumer,customer cannot use the product at all,en,0.37,2026-11-17 17:43,Emma Johansson,App will not open
+T-0284,Technical,Low,no,0.771,Technical,Low,,,how_to,how-to question,en,0.31,2026-11-17 17:44,Isha Kapoor,WHY IS THIS SO HARD
+T-0285,Billing,Urgent,no,0.983,Billing,Urgent,,,unauthorised_charges,"possible fraud, money is leaving the customer's card right now",en,1.03,2026-11-17 17:55,Leila Farouk,Charges I did not make
+T-0286,Shipping,Medium,no,0.969,Shipping,Medium,,,wrong_or_damaged_item,wrong or damaged item delivered,en,0.27,2026-11-17 18:06,Kabir Singh,Wrong item received
+T-0287,Billing,Urgent,no,0.97,Billing,Urgent,,,unauthorised_charges,"possible fraud, money is leaving the customer's card right now",en,1.13,2026-11-17 18:16,Arjun Rao,Unauthorised payments
+T-0288,Other,Low,no,0.974,Other,Low,,,partnership,business enquiry,en,0.35,2026-11-17 18:26,Yusuf Demir,Reseller question
+T-0289,Billing,Medium,no,0.981,Billing,Medium,,,renewal_dispute,unexpected renewal charge,en,0.32,2026-11-17 18:33,Grace Lee,Subscription renewed without notice
+T-0290,Shipping,Medium,no,0.983,Shipping,Medium,,,tracking_stuck,tracking not updating,en,0.37,2026-11-17 18:47,Tom Becker,Tracking not updating
+T-0291,Account,Medium,no,0.988,Account,Medium,,,password_reset_problem,password reset email delayed,en,0.35,2026-11-17 18:55,Grace Lee,Password reset email is slow
+T-0292,Technical,High,yes,0.917,Technical,High,ML thinks priority may be higher: High (61%),150 log lines stripped before classification,feature_broken,a feature is failing with errors,en,0.58,2026-11-17 19:09,Yusuf Demir,Hub keeps disconnecting
+T-0293,Other,Low,no,0.957,Other,Low,,,careers,job enquiry,en,0.25,2026-11-17 19:16,Julia Costa,Job application
+T-0294,Account,Low,no,0.963,Account,Low,,,close_account,account closure request,en,0.26,2026-11-17 19:23,Ananya Iyer,Close my account
+T-0295,Shipping,Low,no,0.974,Shipping,Low,,,shipping_info,shipping information question,en,0.23,2026-11-17 19:36,Ethan Brooks,Do you ship to my country?
+T-0296,Technical,Medium,no,0.963,Technical,Medium,,,feature_broken,a feature is failing with errors,en,0.35,2026-11-17 19:49,Ethan Brooks,Export fails
+T-0297,Billing,Urgent,no,0.982,Billing,Urgent,,,unauthorised_charges,"possible fraud, money is leaving the customer's card right now",en,0.42,2026-11-17 19:55,Julia Costa,Fraud on my account?
+T-0298,Shipping,Medium,no,0.896,Shipping,Medium,,,wrong_or_damaged_item,wrong or damaged item delivered,en,0.35,2026-11-17 19:56,Omar Haddad,Received the wrong product
+T-0299,Billing,Urgent,yes,0.6,Billing,Urgent,low confidence (0.60),"customer downplays the issue: priority set from content, not tone",unauthorised_charges,"possible fraud, money is leaving the customer's card right now",en,0.72,2026-11-17 20:10,Hannah Schmidt,Small question when you have a moment
+T-0300,Other,High,no,0.959,Other,High,,,legal_threat,"legal or regulatory escalation, deadline-sensitive",en,0.43,2026-11-17 20:23,Leila Farouk,Formal complaint

@@ -1,0 +1,32 @@
+{
+  "tickets": 300,
+  "auto": 268,
+  "review": 32,
+  "seconds": 5.72,
+  "review_reasons": {
+    "no usable content": 4,
+    "low confidence": 7,
+    "multiple requests": 14,
+    "rules vs ML disagree": 5,
+    "prompt injection": 2,
+    "possible under-prioritisation": 2
+  },
+  "robustness": {
+    "prompt injections neutralised": 2,
+    "log dumps stripped": 5,
+    "non-English tickets": 12,
+    "tone traps (angry/downplayed) priced by content": 6,
+    "ML model unavailable (chaos/real)": 0
+  },
+  "quality": {
+    "auto_category_acc": 1.0,
+    "auto_priority_acc": 1.0,
+    "auto_both_acc": 1.0,
+    "auto_under_prioritised": 0,
+    "urgent_recall": 1.0,
+    "ml_cv_category_acc": 0.9595,
+    "ml_cv_priority_acc": 0.9493,
+    "ml_cv_category_f1": 0.9583,
+    "ml_cv_priority_f1": 0.9374
+  }
+}
