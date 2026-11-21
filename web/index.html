@@ -459,12 +459,17 @@ $("t-run").onclick=runTry;
 CATS.forEach(c=>$("f-cat").insertAdjacentHTML("beforeend",`<option>${c}</option>`));
 PRIS.forEach(p=>$("f-pri").insertAdjacentHTML("beforeend",`<option>${p}</option>`));
 ["q","f-cat","f-pri","f-rev"].forEach(id=>$(id).addEventListener("input",renderTickets));
-function show(view){
+const VIEWS=["overview","tickets","review","try","incidents","model","experiments"];
+function show(view,push=true){
+  if(!VIEWS.includes(view)) view="overview";
+  if(push&&location.hash!=="#"+view) history.pushState({view},"","#"+view);
+  closeDrawer();
   document.querySelectorAll("#nav a").forEach(x=>x.classList.toggle("active",x.dataset.view===view));
   document.querySelectorAll("main>section").forEach(s=>s.classList.toggle("hidden",s.id!=="v-"+view));
   if(view==="review"&&!sel){const f=reviewQueue().find(x=>!x.reviewed)||reviewQueue()[0]; if(f) selectReview(f.id)}
 }
-document.querySelectorAll("#nav a").forEach(a=>a.onclick=e=>{e.preventDefault();show(a.dataset.view)});
+document.querySelectorAll("#nav a").forEach(a=>{a.href="#"+a.dataset.view;a.onclick=e=>{e.preventDefault();show(a.dataset.view)}});
+window.addEventListener("popstate",()=>show(location.hash.slice(1)||"overview",false));
 const REASON_KEYS={"prompt injection":"injection","multiple requests":"several requests","no usable content":"no usable","no intent matched":"no known intent",
   "possible under-prioritisation":"priority may be higher","rules vs ML disagree":"rules say","model unavailable, high impact":"no second opinion","low confidence":"low confidence","LLM disagrees":"LLM"};
 let reasonFilter="";
@@ -487,7 +492,7 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape")closeDrawer();
   if(e.key==="Enter"&&e.target.matches&&e.target.matches("[data-go]")&&e.target.tagName!=="BUTTON"){e.preventDefault();goTo(e.target.dataset.go);return}
   if(e.key==="Enter"&&e.target.matches){ if(e.target.matches("[data-q]")){e.preventDefault();selectReview(e.target.dataset.q)}
     else if(e.target.matches("[data-id]")){e.preventDefault();openTicket(e.target.dataset.id)} }});
-load();
+load().then(()=>{const v=location.hash.slice(1); if(v&&v!=="overview") show(v,false); else history.replaceState({view:"overview"},"","#overview")});
 </script>
 </body>
 </html>

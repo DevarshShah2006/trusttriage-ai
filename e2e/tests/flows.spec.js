@@ -219,3 +219,22 @@ test("overview bars open filtered tickets", async ({ page }) => {
   await page.click("#clear-reason");
   await expect(page.locator("#reason-chip")).toBeEmpty();
 });
+
+test("browser back and forward move between pages; refresh keeps the page", async ({ page }) => {
+  await openApp(page);
+  await go(page, "tickets");
+  await expect(page).toHaveURL(/#tickets$/);
+  await go(page, "experiments");
+  await expect(page).toHaveURL(/#experiments$/);
+  await page.goBack();
+  await expect(page.locator("#v-tickets")).toBeVisible();
+  await expect(page.locator('#nav a[data-view="tickets"]')).toHaveClass(/active/);
+  await page.goBack();
+  await expect(page.locator("#v-overview")).toBeVisible();
+  await page.goForward();
+  await expect(page.locator("#v-tickets")).toBeVisible();
+  await page.reload();
+  await expect(page.locator("#v-tickets")).toBeVisible();
+  await page.goto("/#incidents");
+  await expect(page.locator("#v-incidents")).toBeVisible();
+});
