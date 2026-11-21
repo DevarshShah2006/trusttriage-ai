@@ -1,5 +1,7 @@
 # TrustTriage AI: Support Ticket Triage
 
+**Live demo:** https://support-ticket-triage-eight.vercel.app
+
 An AI first pass for customer support. It reads each ticket, assigns a **category** (Billing, Technical, Account, Shipping, Other) and a **priority** (Low, Medium, High, Urgent), and sends anything it is **not sure about to a human review list**. At the end it reports how the 300 tickets were handled.
 
 The guiding rule: **a wrong priority on an urgent ticket is the expensive mistake**, so the system only ever escalates priority, never lowers it. Every disagreement, missing signal or unsafe input goes to a person.
@@ -80,6 +82,8 @@ A clean, monochrome single-page app ([`web/index.html`](web/index.html)) served 
 - **Review queue**: most urgent first; approve or correct, saved to SQLite with a visible audit trail; export results with human decisions
 - **Try a ticket**: paste any ticket and see the live decision (examples: injection, angry tone, two requests, Spanish)
 - **Model quality**: accuracy, F1, confidence distribution, confusion matrices
+
+On the hosted demo, review decisions are kept in the serverless instance's temporary storage, so they reset when it restarts. Run locally (or use Postgres) for a permanent audit trail.
 
 API: `POST /api/triage {"subject","body"}`, `GET /api/tickets`, `POST /api/review`, `GET /api/export`, `GET /health`.
 
