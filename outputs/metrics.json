@@ -2,7 +2,7 @@
   "tickets": 300,
   "auto": 268,
   "review": 32,
-  "seconds": 7.06,
+  "seconds": 14.64,
   "outcomes": {
     "auto_triaged": 268,
     "human_review": 28,

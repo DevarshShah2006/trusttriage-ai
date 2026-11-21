@@ -31,13 +31,14 @@ test("overview shows correct totals with no errors", async ({ page }, info) => {
   await expect(page.locator("#urgent tr")).toHaveCount(25);
   await expect(page.locator("#pri-bars .row")).toHaveCount(5);
   await expect(page.locator("#cat-bars .row")).toHaveCount(6);
+  await expect(page.locator("#hourly svg rect").first()).toBeVisible();
   await page.screenshot({ path: `screenshots/${info.project.name}-overview.png`, fullPage: true });
   expect(errors).toEqual([]);
 });
 
 test("navigation shows exactly one section at a time", async ({ page }) => {
   await openApp(page);
-  for (const view of ["tickets", "review", "try", "model", "overview"]) {
+  for (const view of ["tickets", "review", "try", "incidents", "model", "experiments", "overview"]) {
     await go(page, view);
     await expect(page.locator("main > section:visible")).toHaveCount(1);
     await expect(page.locator(`#nav a[data-view="${view}"]`)).toHaveClass(/active/);
@@ -46,7 +47,7 @@ test("navigation shows exactly one section at a time", async ({ page }) => {
 
 test("no horizontal page scroll", async ({ page }) => {
   await openApp(page);
-  for (const view of ["overview", "review", "try", "model"]) {
+  for (const view of ["overview", "tickets", "review", "try", "incidents", "model", "experiments"]) {
     await go(page, view);
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
     expect(overflow, `horizontal overflow on ${view}`).toBeLessThanOrEqual(1);

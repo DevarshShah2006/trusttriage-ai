@@ -1,6 +1,6 @@
 # Triage run report
 
-Processed **300 tickets** in **7.1s** (median 0.4 ms / ticket for the decision step).
+Processed **300 tickets** in **14.6s** (median 1.2 ms / ticket for the decision step).
 
 ## Reconciliation
 

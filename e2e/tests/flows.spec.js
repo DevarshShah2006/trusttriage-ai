@@ -63,11 +63,12 @@ test("review queue: urgent first, save decision, audit trail", async ({ page }, 
 
   const tag = `e2e-${info.project.name}-${Date.now()}`;
   await items.first().click();
-  await expect(page.locator("#drawer")).toHaveClass(/open/);
+  await expect(items.first()).toHaveClass(/sel/);
+  await expect(page.locator("#rv-panel")).toContainText("Disagreement inspector");
+  await expect(page.locator("#rv-ticket pre.body")).toBeVisible();
   await page.fill("#r-who", tag);
   await page.locator("#r-save").click();
   await expect(page.locator("#toast")).toContainText("Saved (approved)");
-  await expect(page.locator("#drawer")).not.toHaveClass(/open/);
 
   // The audit trail is read from the API; serverless instances may differ, so poll.
   await expect.poll(async () => {
@@ -138,4 +139,36 @@ test("form controls have accessible names", async ({ page }) => {
     [...document.querySelectorAll("input,select,textarea")].filter((el) =>
       !el.getAttribute("aria-label") && !el.labels?.length).map((el) => el.id));
   expect(unnamed).toEqual([]);
+});
+
+test("incident center lists clusters with ticket links", async ({ page }) => {
+  await openApp(page);
+  await go(page, "incidents");
+  const inc = page.locator("#incidents .inc");
+  expect(await inc.count()).toBeGreaterThanOrEqual(3);
+  await expect(inc.first()).toContainText("unauthorised charges");
+  await inc.first().locator("[data-id]").first().click();
+  await expect(page.locator("#drawer")).toHaveClass(/open/);
+});
+
+test("experiment lab compares models and explains the hybrid", async ({ page }) => {
+  await openApp(page);
+  await go(page, "experiments");
+  await expect(page.locator("#lb tr")).toHaveCount(5);
+  await expect(page.locator("#lb tr.best")).toHaveCount(1);
+  await expect(page.locator("#exp-insight")).toContainText("hybrid");
+});
+
+test("theme switch toggles and persists across reload", async ({ page }) => {
+  await openApp(page);
+  await page.click('[data-theme-set="dark"]');
+  await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
+  const darkBg = await page.evaluate(() => getComputedStyle(document.body).backgroundColor);
+  await page.reload();
+  await expect(page.locator("#kpis .kpi")).toHaveCount(4);
+  await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
+  await expect(page.locator('[data-theme-set="dark"]')).toHaveAttribute("aria-pressed", "true");
+  await page.click('[data-theme-set="light"]');
+  const lightBg = await page.evaluate(() => getComputedStyle(document.body).backgroundColor);
+  expect(lightBg).not.toBe(darkBg);
 });

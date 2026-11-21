@@ -17,6 +17,7 @@ import pandas as pd
 from triage.llm import LLMClassifier
 from triage.model import TicketModel, out_of_fold
 from triage.pipeline import triage_frame
+from triage.insights import build as build_insights
 from triage.report import write_report
 
 ROOT = Path(__file__).resolve().parent
@@ -85,6 +86,12 @@ def main():
 
     metrics = write_report(res, gold, ml_preds, out, elapsed, args, llm)
     (out / "metrics.json").write_text(json.dumps(metrics, indent=2))
+    if gold is not None:
+        ml_ids = ml_preds.copy(); ml_ids["id"] = tickets.id.values
+        ins = build_insights(tickets, res, gold, ml_ids)
+        (out / "insights.json").write_text(json.dumps(ins, indent=1, default=str))
+        best = max(ins["experiments"]["leaderboard"][:-1], key=lambda r: r["category_f1"] + r["priority_f1"])
+        print(f"Experiments done; best CV model: {best['model']}; incidents: {len(ins['incidents'])}")
     print((out / "report.md").read_text(encoding="utf-8"))
 
 

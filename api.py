@@ -81,6 +81,12 @@ def summary():
     return json.loads((OUT / "metrics.json").read_text())
 
 
+@app.get("/api/insights")
+def insights():
+    p = OUT / "insights.json"
+    return json.loads(p.read_text()) if p.exists() else {}
+
+
 @app.get("/api/tickets")
 def tickets():
     res = _results()
