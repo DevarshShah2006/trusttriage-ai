@@ -172,3 +172,34 @@ test("theme switch toggles and persists across reload", async ({ page }) => {
   const lightBg = await page.evaluate(() => getComputedStyle(document.body).backgroundColor);
   expect(lightBg).not.toBe(darkBg);
 });
+
+test("command center cards open the matching tickets", async ({ page }) => {
+  await openApp(page);
+  const card = (go) => page.locator(`#kpis [data-go="${go}"]`);
+  await card("urgent").click();
+  await expect(page.locator("#v-tickets")).toBeVisible();
+  await expect(page.locator("#f-pri")).toHaveValue("Urgent");
+  await expect(page.locator("#rows tr")).toHaveCount(25);
+
+  await go(page, "overview");
+  await card("auto").click();
+  await expect(page.locator("#f-rev")).toHaveValue("no");
+  await expect(page.locator("#f-pri")).toHaveValue("");
+  await expect(page.locator("#rows tr")).toHaveCount(268);
+
+  await go(page, "overview");
+  await card("all").click();
+  await expect(page.locator("#rows tr")).toHaveCount(300);
+
+  await go(page, "overview");
+  await card("review").click();
+  await expect(page.locator("#v-review")).toBeVisible();
+  await expect(page.locator("#queue .queue-item.sel")).toHaveCount(1);
+  await expect(page.locator("#rv-panel")).toContainText("Disagreement inspector");
+
+  // keyboard: cards are real buttons
+  await go(page, "overview");
+  await card("urgent").focus();
+  await page.keyboard.press("Enter");
+  await expect(page.locator("#v-tickets")).toBeVisible();
+});

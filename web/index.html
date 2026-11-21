@@ -65,6 +65,10 @@ h2{font-size:13px;font-weight:600;margin:0 0 14px}
 .kpi .label{color:var(--muted);font-size:12.5px;font-weight:500}
 .kpi .value{font-size:26px;font-weight:600;letter-spacing:-.03em;margin-top:6px;font-variant-numeric:tabular-nums}
 .kpi .hint{color:var(--faint);font-size:12px;margin-top:2px}
+.kpi.link{cursor:pointer;transition:border-color .15s,transform .15s;text-align:left;font:inherit;color:inherit;width:100%}
+.kpi.link:hover{border-color:var(--accent);transform:translateY(-1px)}
+.kpi.link .go{float:right;color:var(--faint);font-size:12px}
+.kpi.link:hover .go{color:var(--accent)}
 .two{grid-template-columns:1fr 1fr} .wide{grid-template-columns:2fr 1fr}
 .bars .row{display:grid;grid-template-columns:130px 1fr 44px;align-items:center;gap:12px;padding:5px 0}
 .bars .name{color:var(--ink-2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap} .bars .n{text-align:right;color:var(--muted);font-variant-numeric:tabular-nums}
@@ -299,9 +303,9 @@ function renderOverview(){
   const urgent=T.filter(t=>t.suggested_priority==="Urgent"), q=S.quality||{};
   $("ov-sub").textContent=`${S.tickets} tickets processed in ${S.seconds}s. ${pct(S.auto,S.tickets)} handled automatically, ${S.unaccounted??0} unaccounted.`;
   $("c-all").textContent=S.tickets;
-  const k=[["Tickets",S.tickets,"from tickets.csv"],["Automatic",S.auto,pct(S.auto,S.tickets)+" of total"],
-    ["Needs review",S.review,pct(S.review,S.tickets)+" sent to people"],["Urgent",urgent.length,q.urgent_recall!=null?`${Math.round(q.urgent_recall*100)}% caught`:""]];
-  $("kpis").innerHTML=k.map(([l,v,h])=>`<div class="card kpi"><div class="label">${l}</div><div class="value">${v}</div><div class="hint">${h}</div></div>`).join("");
+  const k=[["Tickets",S.tickets,"from tickets.csv","all"],["Automatic",S.auto,pct(S.auto,S.tickets)+" of total","auto"],
+    ["Needs review",S.review,pct(S.review,S.tickets)+" sent to people","review"],["Urgent",urgent.length,q.urgent_recall!=null?`${Math.round(q.urgent_recall*100)}% caught`:"","urgent"]];
+  $("kpis").innerHTML=k.map(([l,v,h,go])=>`<button class="card kpi link" data-go="${go}" aria-label="Open ${l.toLowerCase()} tickets"><div class="label">${l}<span class="go">View</span></div><div class="value">${v}</div><div class="hint">${h}</div></button>`).join("");
   $("split").innerHTML=`<i style="width:${S.auto/S.tickets*100}%"></i>`;
   $("split-legend").innerHTML=`<span><b>${S.auto}</b> automatic</span><span><b>${S.review}</b> human review</span>`;
   $("reasons").innerHTML='<h2>Why tickets went to review</h2><div class="bars" id="rr"></div>';
@@ -455,6 +459,12 @@ function show(view){
   if(view==="review"&&!sel){const f=reviewQueue().find(x=>!x.reviewed)||reviewQueue()[0]; if(f) selectReview(f.id)}
 }
 document.querySelectorAll("#nav a").forEach(a=>a.onclick=e=>{e.preventDefault();show(a.dataset.view)});
+function goTo(kind){
+  if(kind==="review"){show("review");return}
+  $("q").value=""; $("f-cat").value=""; $("f-pri").value=kind==="urgent"?"Urgent":""; $("f-rev").value=kind==="auto"?"no":"";
+  renderTickets(); show("tickets"); window.scrollTo(0,0);
+}
+document.addEventListener("click",e=>{const g=e.target.closest("[data-go]"); if(g) goTo(g.dataset.go)});
 document.addEventListener("click",e=>{const q=e.target.closest("[data-q]"); if(q) return selectReview(q.dataset.q);
   const r=e.target.closest("[data-id]"); if(r) openTicket(r.dataset.id)});
 $("scrim").onclick=closeDrawer;
