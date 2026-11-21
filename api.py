@@ -22,9 +22,25 @@ from triage.pipeline import triage_one
 ROOT = Path(__file__).resolve().parent
 OUT = ROOT / "outputs"
 app = FastAPI(title="TrustTriage AI", version="1.0")
-OUT.mkdir(exist_ok=True)
 app.mount("/outputs", StaticFiles(directory=OUT), name="outputs")
-_model = TicketModel.load() if MODEL_PATH.exists() else None
+
+
+def _load_model():
+    try:
+        return TicketModel.load()
+    except Exception:
+        # Saved model missing or built with another sklearn version: retrain from gold labels (~1 s).
+        try:
+            t = pd.read_csv(ROOT / "data" / "tickets.csv", dtype=str).fillna("")
+            g = t.merge(pd.read_csv(ROOT / "data" / "gold_labels.csv"), on="id")
+            g = g[g.labelable == "yes"]
+            texts = (g.subject + "\n" + g.body).tolist()
+            return TicketModel().fit(texts, g.category.tolist(), g.priority.tolist())
+        except Exception:
+            return None  # rules-only mode; high-impact tickets go to review
+
+
+_model = _load_model()
 
 
 def _results() -> pd.DataFrame:

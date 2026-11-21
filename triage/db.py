@@ -8,7 +8,11 @@ from pathlib import Path
 
 import pandas as pd
 
-DB_PATH = Path(__file__).resolve().parent.parent / "outputs" / "reviews.db"
+import os
+
+# Vercel's filesystem is read-only except /tmp (data there lasts only while the instance is warm).
+DB_PATH = (Path("/tmp/reviews.db") if os.getenv("VERCEL")
+           else Path(__file__).resolve().parent.parent / "outputs" / "reviews.db")
 
 
 

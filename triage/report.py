@@ -4,10 +4,13 @@ from __future__ import annotations
 from collections import Counter
 from pathlib import Path
 
-import matplotlib
+try:
+    import matplotlib
 
-matplotlib.use("Agg")
-import matplotlib.pyplot as plt  # noqa: E402
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt  # noqa: E402
+except ImportError:  # charts are optional
+    plt = None
 import numpy as np  # noqa: E402
 import pandas as pd  # noqa: E402
 from sklearn.metrics import confusion_matrix, f1_score  # noqa: E402
@@ -120,6 +123,8 @@ def write_report(res: pd.DataFrame, gold, ml_preds, out: Path, elapsed: float, a
 
 
 def _charts(res, gm, out: Path):
+    if plt is None:
+        return
     cdir = out / "charts"; cdir.mkdir(exist_ok=True)
     fig, ax = plt.subplots(1, 3, figsize=(15, 4.2))
     auto = res[res.needs_review == "no"]
